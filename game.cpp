@@ -1,8 +1,14 @@
 #include "game.h"
+#include iostream
+using namespace std::string;
+using namespace std::cout;
+using namespace std::endl;
+using namespace std::cin;
 
 Game::Game()
 {
     // TODO
+    
 }
 
 Game::~Game()
