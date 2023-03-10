@@ -1,13 +1,13 @@
-#include "game.h"
-#include "helper.h"
-#include iostream;
+//#include "game.h"
+//#include "helper.h"
+#include <iostream>
 using std::string;
 using std::cout;
 using std::endl;
 using std::cin;
 using std::exit;
 
-void showStudentInformation(string name, string id, string email){
+void showStudentInformation(){
     // TODO
     cout << "_ _ _ _ __ _ __ _ _ _ _ _ _ _ __ _ _ _ _ _  _  " << endl;
     cout << "Name: replace iwith name" << endl;
@@ -40,20 +40,23 @@ int main()
     int choice;
     choice = mainMenu();
     while (choice != 3){
-        while (choice() > 3 && choice() < 1){
+        while ((choice > 3) && (choice < 1)){
             //todo
-            cout << "Invalid choice. Please try again. " <<;
+            cout << "Invalid choice. Please try again. " << endl;
             cin >> choice;
         }
         if (choice == 3){
             exit();
-        }
+        };
         if (choice == 2){
             showStudentInformation();
+            exit();
         }
         if (choice == 1){
-            Game game;
-            game.start();
+            //Game game;
+            //game.start();
+            cout << "Game is not implemented yet" << endl;
+            exit();
         }
     }
     std::cout << "Good bye!\n\n";
