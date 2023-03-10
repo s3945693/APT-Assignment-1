@@ -31,6 +31,20 @@ void exit(){
     // TODO
     exit(0);
 }
+
+void printBlock(){
+    cout << "You can use the commands to play the game" << endl;
+    cout << "load <g>" << endl;
+    cout << " g: number of teh game board ro load" << endl;
+    cout << "init <x>,<y> <direction>" << endl;
+    cout << " x: horizontal position of the car btwn 0-9" << endl;
+    cout << " y: vertical position of the car btwn 0-9" << endl;
+    cout << " direction: direction of the car (N, S, E, W)" << endl;
+    cout << "forward (or f)" << endl;
+    cout << "turn left (or l)" << endl;
+    cout << "turn right (or r)" << endl;
+    cout< << "quit (or q)" << endl;
+}
 int main()
 {
     /**
