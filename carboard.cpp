@@ -56,7 +56,7 @@ int main()
     while (choice != 3){
         while ((choice > 3) && (choice < 1)){
             //todo
-            cout << "Invalid choice. Please try again. " << endl;
+            cout << "Invalid choice. Please try again. ";
             cin >> choice;
         }
         if (choice == 3){
