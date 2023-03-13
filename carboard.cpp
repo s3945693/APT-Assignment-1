@@ -12,6 +12,8 @@ void showStudentInformation();
 int mainMenu();
 void exit();
 void printBlock();
+//g++ -Wall -Werror -std=c++14 -O -o test  carboard.cpp board.cpp
+// ./test
 
 int main()
 {
@@ -45,8 +47,9 @@ int main()
         }
         *choicePtr = mainMenu();
     }
-    //Board board;
+    Board board;
     //board.pBoard();
+    cout <<"Exiting..."<<endl;
     return EXIT_SUCCESS;
 }
 

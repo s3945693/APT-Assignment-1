@@ -40,23 +40,25 @@ Board::Board()
     
     
     vector<vector<Cell>> boardGame(11, vector<Cell>(11, EMPTY));
-    Board::board = &boardGame;
-    Cell emp = EMPTY;
-    for (int i = 0; boardGame.size(); i++) {
-        for (int j = 0; j<boardGame[i].size(); j++) {
-            
+    //Board::board = &boardGame;
+ 
+    for (int i = 0; i<11; i++) {
+        for (int j = 0; j<11; j++) {
+            /*
             boardGame[i][j] = emp;
             if (i == 0 && j == 0){
-                boardGame[i][j] = emp;
+                boardGame[i][j] = BLOCKED;
             }
             else if (i == 0) {
                 boardGame[i][j] = BLOCKED;
             }
             if (i!= 0 && j == 0) {
                 boardGame[i][j] = BLOCKED;
-            }
+            }*/
+            cout << boardGame[i][j] << " ";
             
         }
+        cout << endl;
     }
 
 }
