@@ -12,7 +12,7 @@ void showStudentInformation();
 int mainMenu();
 void exit();
 void printBlock();
-//g++ -Wall -Werror -std=c++14 -O -o test  carboard.cpp board.cpp
+//g++ -Wall -Werror -std=c++14 -O -o test board.cpp carboard.cpp game.cpp helper.cpp player.cpp
 // ./test
 
 int main()
@@ -48,6 +48,7 @@ int main()
         *choicePtr = mainMenu();
     }
     Board board;
+    board.load(1);
     //board.pBoard();
     cout <<"Exiting..."<<endl;
     return EXIT_SUCCESS;

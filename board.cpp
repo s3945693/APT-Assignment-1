@@ -1,4 +1,6 @@
 #include "board.h"
+#include <iostream>
+#include <string>
 using std::string;
 using std::cout;
 using std::endl;
@@ -41,36 +43,107 @@ Board::Board()
     
     vector<vector<Cell>> boardGame(11, vector<Cell>(11, EMPTY));
     //Board::board = &boardGame;
+    
  
     for (int i = 0; i<11; i++) {
         for (int j = 0; j<11; j++) {
-            /*
-            boardGame[i][j] = emp;
+            
+            //boardGame[i][j] = emp;
             if (i == 0 && j == 0){
                 boardGame[i][j] = BLOCKED;
             }
             else if (i == 0) {
                 boardGame[i][j] = BLOCKED;
             }
-            if (i!= 0 && j == 0) {
+            else if (i!= 0 && j == 0) {
                 boardGame[i][j] = BLOCKED;
-            }*/
-            cout << boardGame[i][j] << " ";
-            
+            }
+            else {
+                boardGame[i][j] = EMPTY;
+            }
+            //cout << boardGame[i][j] << " ";
         }
-        cout << endl;
+        //cout << endl;
     }
+    ///*
+    string boardGameStr[11][11] = { " " };
+    for (int s = 0; s <11; s++){
+        for (int t =0; t < 11; t++){
+            if (s == 0 && t == 0){
+                boardGameStr[s][t] = "|   |";
+            }
+            else if (s == 0) {
+                boardGameStr[s][t] = std::to_string(t-1)+" |";
+            }
+            else if (s != 0 && t == 0) {
+                boardGameStr[s][t] = "| "+ std::to_string(s-1)+" |";
+            }
+            else {
+                boardGameStr[s][t] = "  |";
+            }
+            //cout << boardGameStr[s][t] << " ";  
+        }
+        //cout << endl;
+    }
+    //*/
 
 }
 
 Board::~Board()
 {
-    // TODO
+    // TODO destroy board
 }
 
 void Board::load(int boardId)
 {
     // TODO
+    string boardGameStr[11][11] = { " " };
+   
+    for (int i =1; i<11; i++) {
+        for (int j = 1; j<11; j++) {
+            if (boardId == 1) {
+                if (BOARD_1[i-1][j-1] == BLOCKED) {
+                    boardGameStr[i][j] = "*|";
+                }
+                else {
+                boardGameStr[i][j] = " |";
+                }
+                
+            }
+            else if (boardId == 2) {
+                if (BOARD_2[i-1][j-1] == BLOCKED) {
+                    boardGameStr[i][j] = "|*|";
+                }
+                else {
+                boardGameStr[i][j] = " |";
+                }
+            
+            }
+            else {
+                cout << "Invalid board ID" << endl;
+            }
+         
+        }
+
+    }
+
+    for (int s=0; s<11; s++) {
+        for (int t=0; t<11; t++) {
+            if (s == 0 && t == 0){
+                boardGameStr[s][t] = "| |";
+            }
+            else if (s == 0) {
+                boardGameStr[s][t] = std::to_string(t-1)+"|";
+            }
+            else if (s != 0 && t == 0) {
+                boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
+            }
+            
+            cout << boardGameStr[s][t];
+        }
+        cout << endl;
+    }
+
 }
 
 bool Board::placePlayer(Position position)
