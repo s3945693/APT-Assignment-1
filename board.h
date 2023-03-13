@@ -47,7 +47,7 @@ public:
      * Load the board to either BOARD_1 or BOARD_2 according to user input.
      */
     void load(int boardId);
-
+    void pBoard();
     /**
      * Try to place the PLAYER cell at the provided position.
      *
