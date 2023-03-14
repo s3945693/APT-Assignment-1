@@ -21,14 +21,11 @@ int main()
      * TODO: here's the main function. You can write the "main menu" loop/code
      * here or you can make separate functions - up to you.
      */
-    cout << "Welcome to Car Board" << endl;
-    cout << "_ _ _ _ _ _ _ _ _ _ _\n" << endl;
-    cout << "1. Play game" << endl;
-    cout << "2. Show student's information" << endl;
-    cout << "3. Exit" << endl;
+    
     int choice;
     choice = mainMenu();
     int* choicePtr = &choice;
+
     while (*choicePtr != 3){
         while ((*choicePtr > 3) || (*choicePtr < 1)){
                 //todo
@@ -43,13 +40,33 @@ int main()
                 //Game game;
                 //game.start();
                 cout << "Game is not implemented yet\n" << endl;
+                Game game;
                 //exit();
+                cout << endl;
+                string command;
+                cout << "Select to load a board or quit the game: ";
+                cin >> command;
+                cout << endl;
+                if (command == "load" || command == "g"){
+                    int boardNumber;
+                    cout << "Enter the board number: ";
+                    cin >> boardNumber;
+                    cout << endl;
+                    game.loadBoardNumber(boardNumber);
+                    //game.start();
+                    cout << endl;
+                    cout << "Please select a starting position using init <x>,<y>,<direction> command: ";
+                    string startPos;
+                    cin >> startPos;
+                    cout << endl;
+                }
         }
         *choicePtr = mainMenu();
     }
-    Board board;
-    board.load(1);
+    //Board board;
+    //board.load(1);
     //board.pBoard();
+
     cout <<"Exiting..."<<endl;
     return EXIT_SUCCESS;
 }
@@ -63,10 +80,17 @@ void showStudentInformation(){
 }
 
 int mainMenu(){
+    cout<<endl;
+    cout << "Welcome to Car Board" << endl;
+    cout << "_ _ _ _ _ _ _ _ _ _ _" << endl;
+    cout << "1. Play game" << endl;
+    cout << "2. Show student's information" << endl;
+    cout << "3. Exit" << endl;
     cout << "_ _ _ _ _ _ _ _ _ _ _\n" << endl;
     cout << "\nPlease enter your choice: ";
     int choice;
     cin >> choice;
+    cout <<endl;
     return choice;
 }
 

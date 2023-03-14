@@ -53,7 +53,7 @@ public:
     // initialize and destroy the member variables
     Game();
     ~Game();
-
+    int loadBoardNumber(int x);
     /**
      * Main menu option 1 - play the game as per the specification.
      *
