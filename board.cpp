@@ -107,6 +107,8 @@ void Board::load(int boardId)
             if (boardId == 1) {
                 if (BOARD_1[i-1][j-1] == BLOCKED) {
                     boardGameStr[i][j] = "*|";
+                    //next line creates a seg fault
+                    //this->board->at(i).at(j) = BLOCKED;
                 }
                 else {
                 boardGameStr[i][j] = " |";
@@ -116,6 +118,7 @@ void Board::load(int boardId)
             else if (boardId == 2) {
                 if (BOARD_2[i-1][j-1] == BLOCKED) {
                     boardGameStr[i][j] = "*|";
+                    //this->board->at(i).at(j) = BLOCKED;
                 }
                 else {
                 boardGameStr[i][j] = " |";
@@ -153,6 +156,7 @@ void Board::load(int boardId)
 bool Board::placePlayer(Position position)
 {
     // TODO
+    //this->board->at(position.x+1).at(position.y+1) = PLAYER;
     return false; // feel free to revise this line, depending on your implementation.
 }
 

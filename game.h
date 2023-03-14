@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <iostream>
 #include "helper.h"
 #include "board.h"
 #include "player.h"
@@ -54,6 +55,7 @@ public:
     Game();
     ~Game();
     int loadBoardNumber(int x);
+    void intPlayer(int x,int y, int z);
     /**
      * Main menu option 1 - play the game as per the specification.
      *

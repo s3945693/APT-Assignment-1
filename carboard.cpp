@@ -1,12 +1,15 @@
 #include "game.h"
 #include "helper.h"
 #include "board.h"
+#include "helper.h"
 #include <iostream>
 using std::string;
 using std::cout;
 using std::endl;
 using std::cin;
 using std::exit;
+using std::vector;
+
 
 void showStudentInformation();
 int mainMenu();
@@ -59,6 +62,33 @@ int main()
                     string startPos;
                     cin >> startPos;
                     cout << endl;
+
+                    
+                    vector<string> startPosVec;
+                    Helper::splitString(startPos,startPosVec,",");
+                    int x = stoi(startPosVec[0]);
+                    int y = stoi(startPosVec[1]);
+                    x+=1;
+                    x-=1;
+                    y+=1;
+                    y-=1;
+                    string direction = startPosVec[2];
+                    ///*
+                    if (direction == "N"){
+                        game.intPlayer(x,y,0);
+                        cout<< "made it into init" << endl;
+                    }
+                    if (direction == "E"){
+                        game.intPlayer(x,y,1);
+                    }
+                    if (direction == "S"){
+                        game.intPlayer(x,y,2);
+                    }
+                    if (direction == "W"){
+                        game.intPlayer(x,y,3);
+                    }
+                    cout<< "made it out of init" << endl;
+                    //*/
                 }
         }
         *choicePtr = mainMenu();
