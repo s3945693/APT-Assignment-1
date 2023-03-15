@@ -87,7 +87,6 @@ int main()
                     if (direction == "W"){
                         game.intPlayer(x,y,3);
                     }
-                    cout<< "made it out of init" << endl;
                     //*/
                 }
         }

@@ -156,8 +156,14 @@ void Board::load(int boardId)
 bool Board::placePlayer(Position position)
 {
     // TODO
-    //this->board->at(position.x+1).at(position.y+1) = PLAYER;
-    return false; // feel free to revise this line, depending on your implementation.
+    cout<< "in place player"<< endl;
+
+    //deref a baord not working
+    vector<vector<Cell>> test = *board;
+    cout << "created test in board.cpp" << test[0][1] << endl;
+    test[position.x+1][position.y+1] = PLAYER;
+    cout << "placed player" << endl;
+    return true; // feel free to revise this line, depending on your implementation.
 }
 
 PlayerMove Board::movePlayerForward(Player* player)
@@ -169,6 +175,52 @@ PlayerMove Board::movePlayerForward(Player* player)
 void Board::display(Player* player)
 {
     // TODO
+    string boardGameStr[11][11] = { " " };
+    //todo if baordId isNot valid, loop till valid
+    vector<vector<Cell>>& test = *board;
+    cout << "created test in board.cpp" << endl;
+    //test = *board;
+    cout << "assignt *board to test" << endl;
+    //Player t1;
+    cout << "got here" << endl;
+    //t1 = *player;
+    //test[t1.position.x][t1.position.y] = PLAYER;
+
+    for (int i =1; i<11; i++) {
+        for (int j = 1; j<11; j++) {
+            
+                if (test[i][j] == BLOCKED) {
+                    boardGameStr[i][j] = "*|";
+                    //next line creates a seg fault
+                    //this->board->at(i).at(j) = BLOCKED;
+                }
+                else if (test[i][j] == PLAYER) {
+                    boardGameStr[i][j] = "P|";
+                }
+                else {
+                boardGameStr[i][j] = " |";
+                }
+         
+        }
+
+    }
+
+    for (int s=0; s<11; s++) {
+        for (int t=0; t<11; t++) {
+            if (s == 0 && t == 0){
+                boardGameStr[s][t] = "| |";
+            }
+            else if (s == 0) {
+                boardGameStr[s][t] = std::to_string(t-1)+"|";
+            }
+            else if (s != 0 && t == 0) {
+                boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
+            }
+            
+            cout << boardGameStr[s][t];
+        }
+        cout << endl;
+    }
 
 }
 
