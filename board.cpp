@@ -159,9 +159,9 @@ bool Board::placePlayer(Position position)
     cout<< "in place player"<< endl;
 
     //deref a baord not working
-    vector<vector<Cell>> test = *board;
-    cout << "created test in board.cpp" << test[0][1] << endl;
-    test[position.x+1][position.y+1] = PLAYER;
+    
+    cout << "created test in board.cpp" << endl;
+    this->board->at(position.x+1).at(position.y+1) = PLAYER;
     cout << "placed player" << endl;
     return true; // feel free to revise this line, depending on your implementation.
 }
