@@ -25,9 +25,8 @@ void Player::initialisePlayer(Position* position, Direction direction)
 {
     //TODO
     this->position = *position;
-    cout<<"got here Posx: "<< position->x << "Posy: " << position ->y <<endl;
     this->direction = direction;
-    cout<<"got here d: "<< this ->direction << endl;
+    cout << "Player initialised at position (" << this->position.x << "," << this->position.y << ") facing " << this->direction << endl;
 }
 
 void Player::turnDirection(TurnDirection turnDirection)

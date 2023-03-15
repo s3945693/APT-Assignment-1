@@ -54,33 +54,30 @@ int Game::loadBoardNumber(int x)
     return 0; // feel free to revise this line, depending on your implementation.
 }
 
-void Game::intPlayer(int x, int y, int z)
+int Game::intPlayer(int x, int y, int z)
 {
     Position pos(x,y);
-    Direction dir = NORTH;
-    if(dir == NORTH){
-        int s = 0;
-        s++;
-    }
-    cout<<"got here"<< endl;
+    Player test = *player;
+    cout<<"got here b4 if"<< endl;
     if(z == 0)
-    {
-        this->player->initialisePlayer(&pos,NORTH);
+    {    
+        test.initialisePlayer(&pos,NORTH);
     }
     else if(z == 1)
     {
-        this->player->initialisePlayer(&pos,EAST);
+        test.initialisePlayer(&pos,EAST);
     }
     else if(z == 2)
     {
-        this->player->initialisePlayer(&pos,SOUTH);
+        test.initialisePlayer(&pos,SOUTH);
     }
     else if(z == 3)
     {
-        this->player->initialisePlayer(&pos,WEST);
+        test.initialisePlayer(&pos,WEST);
     }
     
-    cout<<"game IntPlayer"<<endl;
+    cout<<"game IntPlayer complete"<<endl;
+    return 0;
 }
 
 bool Game::initializePlayer()

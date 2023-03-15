@@ -55,7 +55,8 @@ public:
     Game();
     ~Game();
     int loadBoardNumber(int x);
-    void intPlayer(int x,int y, int z);
+
+    int intPlayer(int x,int y, int z);
     /**
      * Main menu option 1 - play the game as per the specification.
      *
