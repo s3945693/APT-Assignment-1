@@ -44,6 +44,7 @@ Board::Board()
     vector<vector<Cell>> boardGame(11, vector<Cell>(11, EMPTY));
     this->board = &boardGame;
     
+
  
     for (int i = 0; i<11; i++) {
         for (int j = 0; j<11; j++) {
@@ -61,7 +62,7 @@ Board::Board()
             else {
                 boardGame[i][j] = EMPTY;
             }
-            //cout << boardGame[i][j] << " ";
+            //cout << (*board)[i][j] << " ";
         }
         //cout << endl;
     }
@@ -159,9 +160,19 @@ bool Board::placePlayer(Position position)
     cout<< "in place player"<< endl;
 
     //deref a baord not working
-    
-    cout << "created test in board.cpp" << endl;
-    this->board->at(position.x+1).at(position.y+1) = PLAYER;
+    cout<<"player position x: "<< position.x+1 << " position y: " << position.y+1 << endl;
+
+    //vector<vector<Cell>>& test = *board;
+    for (int i = 0; i<11; i++) {
+        for (int j = 0; j<11; j++) {
+            cout << (*board)[i][j];
+        }
+        cout << endl;
+    }
+    cout << "got here" << endl;
+    (*board)[position.x+1][position.y+1] = PLAYER;
+    cout<< "test[position.x+1][position.y+1] = PLAYER;" << endl;
+    //this->board->at(position.x+1).at(position.y+1) = PLAYER;
     cout << "placed player" << endl;
     return true; // feel free to revise this line, depending on your implementation.
 }
@@ -177,9 +188,8 @@ void Board::display(Player* player)
     // TODO
     string boardGameStr[11][11] = { " " };
     //todo if baordId isNot valid, loop till valid
-    vector<vector<Cell>>& test = *board;
+   
     cout << "created test in board.cpp" << endl;
-    //test = *board;
     cout << "assignt *board to test" << endl;
     //Player t1;
     cout << "got here" << endl;
@@ -188,13 +198,13 @@ void Board::display(Player* player)
 
     for (int i =1; i<11; i++) {
         for (int j = 1; j<11; j++) {
-            
-                if (test[i][j] == BLOCKED) {
+                
+                if ((*board)[i][j] == BLOCKED) {
                     boardGameStr[i][j] = "*|";
                     //next line creates a seg fault
                     //this->board->at(i).at(j) = BLOCKED;
                 }
-                else if (test[i][j] == PLAYER) {
+                else if ((*board)[i][j] == PLAYER) {
                     boardGameStr[i][j] = "P|";
                 }
                 else {

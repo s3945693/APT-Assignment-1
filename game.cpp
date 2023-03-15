@@ -79,7 +79,7 @@ int Game::intPlayer(int x, int y, int z)
     cout<<"game IntPlayer complete"<<endl;
     Board b = *board;
     cout<< "attempting to place a player" << endl;
-    b.placePlayer(pos);
+    //b.placePlayer(pos);
     cout << "testing b.display" << endl;
     b.display(&test);
     return 0;
