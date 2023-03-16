@@ -41,8 +41,9 @@ Board::Board()
     // TODO
     
     
-    vector<vector<Cell>> boardGame(11, vector<Cell>(11, EMPTY));
-    this->board = &boardGame;
+    board = new vector<vector<Cell>>(11, vector<Cell>(11, EMPTY));
+    cout << "This is boardGame ref in class::board init: "<< board << endl;
+    cout << this->board << endl;
     
 
  
@@ -51,16 +52,16 @@ Board::Board()
             
             //boardGame[i][j] = emp;
             if (i == 0 && j == 0){
-                boardGame[i][j] = BLOCKED;
+                (*board)[i][j] = BLOCKED;
             }
             else if (i == 0) {
-                boardGame[i][j] = BLOCKED;
+                (*board)[i][j] = BLOCKED;
             }
             else if (i!= 0 && j == 0) {
-                boardGame[i][j] = BLOCKED;
+                (*board)[i][j] = BLOCKED;
             }
             else {
-                boardGame[i][j] = EMPTY;
+                (*board)[i][j] = EMPTY;
             }
             //cout << (*board)[i][j] << " ";
         }
@@ -92,7 +93,7 @@ Board::Board()
 
 Board::~Board()
 {
-    // TODO destroy board
+    delete board;
 }
 
 void Board::load(int boardId)
@@ -109,7 +110,7 @@ void Board::load(int boardId)
                 if (BOARD_1[i-1][j-1] == BLOCKED) {
                     boardGameStr[i][j] = "*|";
                     //next line creates a seg fault
-                    //this->board->at(i).at(j) = BLOCKED;
+                    (*board)[i][j] = BLOCKED;
                 }
                 else {
                 boardGameStr[i][j] = " |";
@@ -119,7 +120,7 @@ void Board::load(int boardId)
             else if (boardId == 2) {
                 if (BOARD_2[i-1][j-1] == BLOCKED) {
                     boardGameStr[i][j] = "*|";
-                    //this->board->at(i).at(j) = BLOCKED;
+                    (*board)[i][j] = BLOCKED;
                 }
                 else {
                 boardGameStr[i][j] = " |";
@@ -157,11 +158,12 @@ void Board::load(int boardId)
 bool Board::placePlayer(Position position)
 {
     // TODO
-    cout<< "in place player"<< endl;
+    cout<< "in place player class::board"<< endl;
 
     //deref a baord not working
     cout<<"player position x: "<< position.x+1 << " position y: " << position.y+1 << endl;
-
+    cout << "board vecotr pointer in board::class: " <<this->board << endl;
+    cout << "board vecotr pointer in board::class: " <<board<< endl;
     //vector<vector<Cell>>& test = *board;
     for (int i = 0; i<11; i++) {
         for (int j = 0; j<11; j++) {
@@ -169,11 +171,11 @@ bool Board::placePlayer(Position position)
         }
         cout << endl;
     }
-    cout << "got here" << endl;
+    cout << "got here board::class" << endl;
     (*board)[position.x+1][position.y+1] = PLAYER;
     cout<< "test[position.x+1][position.y+1] = PLAYER;" << endl;
     //this->board->at(position.x+1).at(position.y+1) = PLAYER;
-    cout << "placed player" << endl;
+    cout << "placed player board::class" << endl;
     return true; // feel free to revise this line, depending on your implementation.
 }
 
@@ -192,10 +194,10 @@ void Board::display(Player* player)
     cout << "created test in board.cpp" << endl;
     cout << "assignt *board to test" << endl;
     //Player t1;
-    cout << "got here" << endl;
+    
     //t1 = *player;
     //test[t1.position.x][t1.position.y] = PLAYER;
-
+    cout<< "printing board address in baord::class" << board << endl;
     for (int i =1; i<11; i++) {
         for (int j = 1; j<11; j++) {
                 

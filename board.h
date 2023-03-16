@@ -35,8 +35,8 @@ class Board
 
 private:
     std::vector<std::vector<Cell>>* board;
-
 public:
+    
 
     /**
      * Initilize and destory a 10*10 board

@@ -8,11 +8,10 @@ using std::cin;
 
 Game::Game()
 {
+    board = new Board();
     
-    Board boardG;
-    this->board = &boardG;
-    Player player;
-    this->player = &player;
+    player = new Player();
+    cout << "this is this.board in game: " <<this->board << endl;
     cout << "You can use the following commands to play the game:" << endl;
     cout << "load <g>\n    g - number of gameboard to load" << endl;
     cout << "init <x>,<y>,<diretion>\n    x:horizontal position of the car on the board (between 0 & 9)" << endl;
@@ -22,13 +21,14 @@ Game::Game()
     cout << "turn_left (or l)" << endl;
     cout << "turn_right (or r)" << endl;
     cout << "quit" << endl;
-    boardG.pBoard();
+    board->pBoard();
     
 }
 
 Game::~Game()
 {
-    // TODO
+    delete board;
+    delete player;
 }
 
 
@@ -57,31 +57,31 @@ int Game::loadBoardNumber(int x)
 int Game::intPlayer(int x, int y, int z)
 {
     Position pos(x,y);
-    Player test = *player;
+    
     cout<<"got here b4 if"<< endl;
     if(z == 0)
     {    
-        test.initialisePlayer(&pos,NORTH);
+        (*player).initialisePlayer(&pos,NORTH);
     }
     else if(z == 1)
     {
-        test.initialisePlayer(&pos,EAST);
+        (*player).initialisePlayer(&pos,EAST);
     }
     else if(z == 2)
     {
-        test.initialisePlayer(&pos,SOUTH);
+        (*player).initialisePlayer(&pos,SOUTH);
     }
     else if(z == 3)
     {
-        test.initialisePlayer(&pos,WEST);
+        (*player).initialisePlayer(&pos,WEST);
     }
     
     cout<<"game IntPlayer complete"<<endl;
-    Board b = *board;
     cout<< "attempting to place a player" << endl;
-    //b.placePlayer(pos);
+    cout <<  "in game.cpp intPlayer: this.board "<< this->board << endl;
+    (*board).placePlayer(pos);
     cout << "testing b.display" << endl;
-    b.display(&test);
+    (*board).display(player);
     return 0;
 }
 
