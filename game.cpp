@@ -58,7 +58,7 @@ int Game::intPlayer(int x, int y, int z)
 {
     Position pos(x,y);
     
-    cout<<"got here b4 if"<< endl;
+   // cout<<"got here b4 if"<< endl;
     if(z == 0)
     {    
         (*player).initialisePlayer(&pos,NORTH);
@@ -76,11 +76,11 @@ int Game::intPlayer(int x, int y, int z)
         (*player).initialisePlayer(&pos,WEST);
     }
     
-    cout<<"game IntPlayer complete"<<endl;
-    cout<< "attempting to place a player" << endl;
-    cout <<  "in game.cpp intPlayer: this.board "<< this->board << endl;
+    //cout<<"game IntPlayer complete"<<endl;
+    //cout<< "attempting to place a player" << endl;
+    //cout <<  "in game.cpp intPlayer: this.board "<< this->board << endl;
     (*board).placePlayer(pos);
-    cout << "testing b.display" << endl;
+    //cout << "testing b.display" << endl;
     (*board).display(player);
     return 0;
 }

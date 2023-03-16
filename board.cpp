@@ -158,24 +158,16 @@ void Board::load(int boardId)
 bool Board::placePlayer(Position position)
 {
     // TODO
-    cout<< "in place player class::board"<< endl;
+    //cout<< "in place player class::board"<< endl;
 
     //deref a baord not working
-    cout<<"player position x: "<< position.x+1 << " position y: " << position.y+1 << endl;
-    cout << "board vecotr pointer in board::class: " <<this->board << endl;
-    cout << "board vecotr pointer in board::class: " <<board<< endl;
-    //vector<vector<Cell>>& test = *board;
-    for (int i = 0; i<11; i++) {
-        for (int j = 0; j<11; j++) {
-            cout << (*board)[i][j];
-        }
-        cout << endl;
-    }
-    cout << "got here board::class" << endl;
+    //cout<<"player position x: "<< position.x+1 << " position y: " << position.y+1 << endl;
+    //cout << "board vecotr pointer in board::class: " <<this->board << endl;
+
     (*board)[position.x+1][position.y+1] = PLAYER;
-    cout<< "test[position.x+1][position.y+1] = PLAYER;" << endl;
+    //cout<< "test[position.x+1][position.y+1] = PLAYER;" << endl;
     //this->board->at(position.x+1).at(position.y+1) = PLAYER;
-    cout << "placed player board::class" << endl;
+    //cout << "placed player board::class" << endl;
     return true; // feel free to revise this line, depending on your implementation.
 }
 
