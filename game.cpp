@@ -27,8 +27,9 @@ Game::Game()
 
 Game::~Game()
 {
+    //board->~Board();
     delete board;
-    delete player;
+    //delete player;
 }
 
 
@@ -47,17 +48,18 @@ bool Game::loadBoard()
     return true; // feel free to revise this line, depending on your implementation.
 }
 
-int Game::loadBoardNumber(int x)
+void Game::loadBoardNumber(int x)
 {
     //TODO
     this->board->load(x);
-    return 0; // feel free to revise this line, depending on your implementation.
+     // feel free to revise this line, depending on your implementation.
 }
 
 int Game::intPlayer(int x, int y, int z)
 {
     Position pos(x,y);
-    
+    //b4 initialising player, check if board position is empty
+
    // cout<<"got here b4 if"<< endl;
     if(z == 0)
     {    

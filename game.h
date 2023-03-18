@@ -54,7 +54,7 @@ public:
     // initialize and destroy the member variables
     Game();
     ~Game();
-    int loadBoardNumber(int x);
+    void loadBoardNumber(int x);
 
     int intPlayer(int x,int y, int z);
     /**

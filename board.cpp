@@ -42,8 +42,8 @@ Board::Board()
     
     
     board = new vector<vector<Cell>>(11, vector<Cell>(11, EMPTY));
-    cout << "This is boardGame ref in class::board init: "<< board << endl;
-    cout << this->board << endl;
+    //cout << "This is boardGame ref in class::board init: "<< board << endl;
+    //cout << this->board << endl;
     
 
  
@@ -183,13 +183,13 @@ void Board::display(Player* player)
     string boardGameStr[11][11] = { " " };
     //todo if baordId isNot valid, loop till valid
    
-    cout << "created test in board.cpp" << endl;
-    cout << "assignt *board to test" << endl;
+    //cout << "created test in board.cpp" << endl;
+    //cout << "assignt *board to test" << endl;
     //Player t1;
     
     //t1 = *player;
     //test[t1.position.x][t1.position.y] = PLAYER;
-    cout<< "printing board address in baord::class" << board << endl;
+    //cout<< "printing board address in baord::class" << board << endl;
     for (int i =1; i<11; i++) {
         for (int j = 1; j<11; j++) {
                 
@@ -199,7 +199,20 @@ void Board::display(Player* player)
                     //this->board->at(i).at(j) = BLOCKED;
                 }
                 else if ((*board)[i][j] == PLAYER) {
+
                     boardGameStr[i][j] = "P|";
+                    if (player->direction == NORTH) {
+                        boardGameStr[i][j] = DIRECTION_ARROW_OUTPUT_NORTH;
+                    }
+                    else if (player->direction == SOUTH) {
+                        boardGameStr[i][j] = DIRECTION_ARROW_OUTPUT_SOUTH;
+                    }
+                    else if (player->direction == EAST) {
+                        boardGameStr[i][j] = DIRECTION_ARROW_OUTPUT_EAST;
+                    }
+                    else if (player->direction == WEST) {
+                        boardGameStr[i][j] = DIRECTION_ARROW_OUTPUT_WEST;
+                    }
                 }
                 else {
                 boardGameStr[i][j] = " |";

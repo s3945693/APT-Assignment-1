@@ -15,6 +15,9 @@ void showStudentInformation();
 int mainMenu();
 void exit();
 void printBlock();
+void intPlayer(string t, vector<string>& s);
+
+string mainMenuCheck();
 //g++ -Wall -Werror -std=c++14 -O -o test board.cpp carboard.cpp game.cpp helper.cpp player.cpp
 // ./test
 
@@ -24,54 +27,62 @@ int main()
      * TODO: here's the main function. You can write the "main menu" loop/code
      * here or you can make separate functions - up to you.
      */
-    
+        // choice becomes a string
+    // check if lenght of choice is > 1, if so, then it is invalid
+    // if lenght of choice is 1, then check if it is an int and if it is 1, 2, or 3
+    // continue
+
     int choice;
     choice = mainMenu();
-    int* choicePtr = &choice;
+   
 
-    while (*choicePtr != 3){
-        while ((*choicePtr > 3) || (*choicePtr < 1)){
-                //todo
-                cout << "Invalid choice. Please try again. ";
-                cin >> *choicePtr;
-        }
-        if (*choicePtr == 2){
+    while (choice != 3){
+        if (choice == 2){
                 showStudentInformation();
                 //exit();
         }
-        if (*choicePtr == 1){
-                //Game game;
-                //game.start();
-                cout << "Game is not implemented yet\n" << endl;
+        if (choice == 1){
                 Game game;
-                //exit();
+
                 cout << endl;
                 string command;
                 cout << "Select to load a board or quit the game: ";
                 cin >> command;
                 cout << endl;
+                //ensuring command is valid
+                while (command != "q" && command != "quit" && command != "load" && command != "g"){
+                    cout << "Invalid command. Please enter a valid command: ";
+                    cin >> command;
+                    cout << endl;
+                }
                 if (command == "load" || command == "g"){
-                    int boardNumber;
-                    cout << "Enter the board number: ";
-                    cin >> boardNumber;
-                    cout << endl;
+                    cout << "Please select a board number (1 or 2): ";
+                    string bNumber = mainMenuCheck();
+                    int boardNumber = stoi(bNumber);
+
+                    //ensuring board number is valid
+                    while (boardNumber != 1 && boardNumber != 2){
+                        cout << "Invalid board number. Please enter a valid board number: ";
+                        bNumber = mainMenuCheck();
+                        boardNumber = stoi(bNumber);
+                    }
+
+                    //loading board
                     game.loadBoardNumber(boardNumber);
-                    //game.start();
                     cout << endl;
+
+                    //initializing player
                     cout << "Please select a starting position using init <x>,<y>,<direction> command: ";
                     string startPos;
                     cin >> startPos;
                     cout << endl;
+                    vector<string> startPosVec;                    
+                    ///*
+                    intPlayer(startPos, startPosVec);
+                    //*/
 
-                    
-                    vector<string> startPosVec;
-                    Helper::splitString(startPos,startPosVec,",");
                     int x = stoi(startPosVec[0]);
                     int y = stoi(startPosVec[1]);
-                    x+=1;
-                    x-=1;
-                    y+=1;
-                    y-=1;
                     string direction = startPosVec[2];
                     ///*
                     if (direction == "N"){
@@ -88,13 +99,15 @@ int main()
                         game.intPlayer(x,y,3);
                     }
                     //*/
+                    //game.~Game();
                 }
+                else if (command == "quit" || command == "q"){
+                    exit();
+                }
+
         }
-        *choicePtr = mainMenu();
+        choice = mainMenu();
     }
-    //Board board;
-    //board.load(1);
-    //board.pBoard();
 
     cout <<"Exiting..."<<endl;
     return EXIT_SUCCESS;
@@ -116,11 +129,47 @@ int mainMenu(){
     cout << "2. Show student's information" << endl;
     cout << "3. Exit" << endl;
     cout << "_ _ _ _ _ _ _ _ _ _ _\n" << endl;
-    cout << "\nPlease enter your choice: ";
-    int choice;
-    cin >> choice;
-    cout <<endl;
+    cout << "Please enter your choice: ";
+    int choice = stoi(mainMenuCheck());
+    while (choice >3 || choice <1){
+        cout << "Invalid choice. Please try again. ";
+        choice = stoi(mainMenuCheck());
+    }
     return choice;
+}
+
+string mainMenuCheck(){
+    string inp;
+    cin >> inp;
+    while (inp.length() > 1 || (isdigit(inp[0]) == false)) {
+        cout << "Invalid choice. Please try again: ";
+        cin >> inp;
+    }
+    return inp;
+}
+
+void intPlayer(string x, vector<string>& s){
+    // TODO
+    Helper::splitString(x,s,",");
+    //cout <<"b4 while loop x: "<< s[0] << ". y: " << s[1] << ". direction: " << s[2] << endl;
+
+    while(Helper::isNumber(s[0]) == false && Helper::isNumber(s[1]) == false){
+            
+            //cout << "x was: " << s[0] << ". y was: " << s[1] << " direction was: " << s[2] << endl;
+            //cout << "x was: " << Helper::isNumber(s[0]) << ". y was: " << Helper::isNumber(s[1]) << " direction was: " << s[2] << endl;
+            cout << "Invalid starting position. Please enter a valid starting position x or y: ";
+            cin >> x;
+            cout << endl;
+            Helper::splitString(x,s,",");
+    }
+
+    while (s[2] != "N" && s[2] != "E" && s[2] != "S" && s[2] != "W"){
+        cout << "the direction entered was false: " << s[2] << endl;
+        cout << "Invalid starting position. Please enter a valid starting position direction: ";
+        cin >> s[2];
+        cout << endl;
+    }
+
 }
 
 void exit(){
