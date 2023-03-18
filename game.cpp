@@ -11,7 +11,7 @@ Game::Game()
     board = new Board();
     
     player = new Player();
-    cout << "this is this.board in game: " <<this->board << endl;
+    //cout << "this is this.board in game: " <<this->board << endl;
     cout << "You can use the following commands to play the game:" << endl;
     cout << "load <g>\n    g - number of gameboard to load" << endl;
     cout << "init <x>,<y>,<diretion>\n    x:horizontal position of the car on the board (between 0 & 9)" << endl;

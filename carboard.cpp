@@ -35,8 +35,9 @@ int main()
     int choice;
     choice = mainMenu();
    
-
+    //cout<<"before main while loop"  << endl;
     while (choice != 3){
+        //cout << "in main while loop" << endl;
         if (choice == 2){
                 showStudentInformation();
                 //exit();
@@ -141,10 +142,11 @@ int mainMenu(){
 string mainMenuCheck(){
     string inp;
     cin >> inp;
-    while (inp.length() > 1 || (isdigit(inp[0]) == false)) {
+    while (inp.length() != 1 || isdigit(inp[0]) == false) {
         cout << "Invalid choice. Please try again: ";
         cin >> inp;
     }
+    //cout << "returning value" << endl;
     return inp;
 }
 
@@ -153,7 +155,7 @@ void intPlayer(string x, vector<string>& s){
     Helper::splitString(x,s,",");
     //cout <<"b4 while loop x: "<< s[0] << ". y: " << s[1] << ". direction: " << s[2] << endl;
 
-    while(Helper::isNumber(s[0]) == false && Helper::isNumber(s[1]) == false){
+    while(Helper::isNumber(s[0]) == false || Helper::isNumber(s[1]) == false){
             
             //cout << "x was: " << s[0] << ". y was: " << s[1] << " direction was: " << s[2] << endl;
             //cout << "x was: " << Helper::isNumber(s[0]) << ". y was: " << Helper::isNumber(s[1]) << " direction was: " << s[2] << endl;
