@@ -9,6 +9,7 @@ using std::endl;
 using std::cin;
 using std::exit;
 using std::vector;
+using std::getline;
 
 
 void showStudentInformation();
@@ -43,68 +44,189 @@ int main()
                 //exit();
         }
         if (choice == 1){
+            string command = " ";
+            while (command != "quit"){
                 Game game;
 
-                cout << endl;
-                string command;
-                cout << "Select to load a board or quit the game: ";
-                cin >> command;
+                cout << "\nHit enter to continue." << endl;
+                cin.clear();
+                cin.ignore(10000,'\n');
+
+                cout << "Select to load<g> or quit the game: ";
+                getline(cin, command);
+                //cout <<"made it here" << endl;
                 cout << endl;
                 //ensuring command is valid
-                while (command != "q" && command != "quit" && command != "load" && command != "g"){
-                    cout << "Invalid command. Please enter a valid command: ";
-                    cin >> command;
-                    cout << endl;
-                }
-                if (command == "load" || command == "g"){
-                    cout << "Please select a board number (1 or 2): ";
-                    string bNumber = mainMenuCheck();
-                    int boardNumber = stoi(bNumber);
-
-                    //ensuring board number is valid
-                    while (boardNumber != 1 && boardNumber != 2){
-                        cout << "Invalid board number. Please enter a valid board number: ";
-                        bNumber = mainMenuCheck();
-                        boardNumber = stoi(bNumber);
+                //cout<< "command was: " <<command<<endl;
+                //cout<<"shouldve printed command" << endl;
+                vector<string> loadVector;
+                
+                Helper::splitString(command, loadVector, " ");
+                //cout << "splitString worked" << endl;
+                bool valid = true;
+                while (valid){
+                    //cout<< "command was: " <<command<<endl;
+                    if (loadVector.size() == 1){
+                        //cout<< "size 1 command was: " <<command<<endl;
+                        if (loadVector[0] == "quit"){
+                            valid = false;
+                            command = "quit";
+                        }
                     }
+                    
+                    else if (loadVector.size() == 2){
+                        //cout<< "size 2 command was: " <<command<<endl;
+                        if (loadVector[0] == "load"){
+                            if (Helper::isNumber(loadVector[1])){
+                                //cout << "made it into isNumber" << endl;
+                                //cout << "loadVector[1] was: " << loadVector[1] <<"d" << endl;
+                                if (stoi(loadVector[1]) == 1 || stoi(loadVector[1]) == 2){
+                                    //cout << "made it into stoi" << endl;
+                                    valid = false;
+                                    game.loadBoardNumber(stoi(loadVector[1]));
+                                    cout << endl;
+                                }
+                            }
+                        }
+                    }
+                    if (valid == true){
 
-                    //loading board
-                    game.loadBoardNumber(boardNumber);
-                    cout << endl;
-
+                        game.displayVoidBoard();
+                        cout << "\nInvalid command. Select to load<g> or quit the game: ";
+                        getline(cin, command);
+                        cout << endl;
+                        Helper::splitString(command, loadVector, " ");
+                    }
+                }
+                //cout << "out of while loop" << endl;
+                //cout << "command was: " <<command<<endl;
+                if (command != "quit"){
+        
                     //initializing player
-                    cout << "Please select a starting position using init <x>,<y>,<direction> command: ";
+                    cout << "Hit enter to continue." << endl;
+                    cin.clear();
+                    cin.ignore(10000,'\n');
+                    cout << "Select either:" << endl;
+                    cout << "1. Load <g>" << endl;
+                    cout << "2. Init <x>,<y>,<direction>" << endl;
+                    cout << "3. Quit" << endl;
+                    cout << "Enter your choice: ";
                     string startPos;
-                    cin >> startPos;
+                    getline(cin, startPos);
                     cout << endl;
                     vector<string> startPosVec;                    
                     ///*
-                    intPlayer(startPos, startPosVec);
-                    //*/
+                    Helper::splitString(startPos, startPosVec, " ");
+                    //cout << "splitString worked" << endl;
+                    bool valid1 = true;
+                    bool valid2 = false;
+                    while (valid1){
+                        //cout<< "command was: " <<command<<endl;
+                        if (startPosVec.size() == 1){
+                            //cout<< "size 1 command was: " <<command<<endl;
+                            if (startPosVec[0] == "quit"){
+                                valid1 = false;
+                                command = "quit";
+                                valid2 = true;
+                            }
+                        }
+                        
+                        else if (startPosVec.size() == 2){
+                            //cout<< "size 2 command was: " <<command<<endl;
+                            if (startPosVec[0] == "load"){
+                                if (Helper::isNumber(startPosVec[1])){
+                                    //cout << "made it into isNumber" << endl;
+                                    //cout << "loadVector[1] was: " << loadVector[1] <<"d" << endl;
+                                    if (stoi(startPosVec[1]) == 1 || stoi(startPosVec[1]) == 2){
+                                        //cout << "made it into stoi" << endl;
 
-                    int x = stoi(startPosVec[0]);
-                    int y = stoi(startPosVec[1]);
-                    string direction = startPosVec[2];
-                    ///*
-                    if (direction == "N"){
-                        game.intPlayer(x,y,0);
-                        cout<< "made it into init" << endl;
+                                        //cout << "got here" <<endl;
+                                        game.loadBoardNumber(stoi(startPosVec[1]));
+                                        valid2 = true;
+                                        //cout <<"got here" <<endl;
+                                        //valid1 = false;
+                                    }
+                                }
+                            }
+
+                            if (startPosVec[0] == "init"){
+
+                                Helper::splitString(startPosVec[1], startPosVec, ",");
+                                if (startPosVec.size() == 3){
+                                    if (Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
+                                        if (startPosVec[2] == "N" || startPosVec[2] == "E" || startPosVec[2] == "S" || startPosVec[2] == "W"){
+
+                                            int x = stoi(startPosVec[0]);
+                                            int y = stoi(startPosVec[1]);
+                                            string direction = startPosVec[2];
+                                            ///*
+                                            if (direction == "N"){
+                                                game.intPlayer(x,y,0);
+                                                cout<< "made it into init" << endl;
+                                            }
+                                            if (direction == "E"){
+                                                game.intPlayer(x,y,1);
+                                            }
+                                            if (direction == "S"){
+                                                game.intPlayer(x,y,2);
+                                            }
+                                            if (direction == "W"){
+                                                game.intPlayer(x,y,3);
+                                            }
+                                            valid1 = false;
+                                            valid2 = true;
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        
+                        if (valid1 == true){
+
+                            if (valid2 == false){
+                            cout << "\nInvalid command.";
+                            }
+                            cout << endl;
+                            if (valid2 == false){
+                            game.displayNoPlayer();
+                            }
+                            cout << "Select either:" << endl;
+                            cout << "1. Load <g>" << endl;
+                            cout << "2. Init <x>,<y>,<direction>" << endl;
+                            cout << "3. Quit" << endl;
+                            cout << "Enter your choice: ";
+                            getline(cin, startPos);
+                            cout << endl;
+                            Helper::splitString(startPos, startPosVec, " ");
+                            valid2 = false;
+                        }
                     }
-                    if (direction == "E"){
-                        game.intPlayer(x,y,1);
+                    //intPlayer(startPos, startPosVec);
+                    //*/
+                    if (command != "quit"){
+                        string gamer;
+                        cout << "enter forward, turn_left, turn_right, r, l, or quit:" << endl;
+                        getline(cin, gamer);
+                        while (gamer != "quit"){
+                            if (gamer == "forward" || gamer == "urn_left" || gamer == "turn_right " || gamer == "r" || gamer == "l"){
+                                cout << "enter next command:" << endl;
+                                getline(cin, gamer);
+                                
+                            }
+                            else{
+                                cout << "Invalid command. Please enter a valid command: ";
+                                getline(cin, gamer);
+                            }
+                        }
                     }
-                    if (direction == "S"){
-                        game.intPlayer(x,y,2);
-                    }
-                    if (direction == "W"){
-                        game.intPlayer(x,y,3);
-                    }
+                    cout << "end of init" << endl;
+                    command = "quit";
                     //*/
                     //game.~Game();
                 }
-                else if (command == "quit" || command == "q"){
-                    exit();
-                }
+            
+            }
 
         }
         choice = mainMenu();
@@ -141,10 +263,10 @@ int mainMenu(){
 
 string mainMenuCheck(){
     string inp;
-    cin >> inp;
+    getline(cin, inp);
     while (inp.length() != 1 || isdigit(inp[0]) == false) {
         cout << "Invalid choice. Please try again: ";
-        cin >> inp;
+        getline(cin, inp);
     }
     //cout << "returning value" << endl;
     return inp;

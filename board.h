@@ -50,6 +50,10 @@ public:
 
     //print a fake untouched board
     void pBoard();
+
+    //print a board without player
+    void pBoardNoPlayer();
+
     /**
      * Try to place the PLAYER cell at the provided position.
      *

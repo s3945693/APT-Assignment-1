@@ -265,4 +265,50 @@ void Board::pBoard()
     }
 }
 
+void Board::pBoardNoPlayer(){
+    string boardGameStr[11][11] = { " " };
+    //todo if baordId isNot valid, loop till valid
+   
+    //cout << "created test in board.cpp" << endl;
+    //cout << "assignt *board to test" << endl;
+    //Player t1;
+    
+    //t1 = *player;
+    //test[t1.position.x][t1.position.y] = PLAYER;
+    //cout<< "printing board address in baord::class" << board << endl;
+    for (int i =1; i<11; i++) {
+        for (int j = 1; j<11; j++) {
+                if ((*board)[i][j] == BLOCKED) {
+                    boardGameStr[i][j] = "*|";
+                    //next line creates a seg fault
+                    //this->board->at(i).at(j) = BLOCKED;
+                }
+                else {
+                boardGameStr[i][j] = " |";
+                }
+         
+        }
+
+    }
+
+    for (int s=0; s<11; s++) {
+        for (int t=0; t<11; t++) {
+            if (s == 0 && t == 0){
+                boardGameStr[s][t] = "| |";
+            }
+            else if (s == 0) {
+                boardGameStr[s][t] = std::to_string(t-1)+"|";
+            }
+            else if (s != 0 && t == 0) {
+                boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
+            }
+            
+            cout << boardGameStr[s][t];
+        }
+        cout << endl;
+    }
+}
+
+
+
 

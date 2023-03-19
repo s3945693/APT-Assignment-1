@@ -97,3 +97,15 @@ void Game::play()
 {
     //TODO
 }
+
+void Game::displayNoPlayer()
+{
+    //TODO
+    this->board->pBoardNoPlayer();
+}
+
+void Game::displayVoidBoard()
+{
+    //TODO
+    this->board->pBoard();
+}
