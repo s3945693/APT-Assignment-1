@@ -174,6 +174,49 @@ bool Board::placePlayer(Position position)
 PlayerMove Board::movePlayerForward(Player* player)
 {
     // TODO
+    if ((*player).direction == SOUTH){
+        if ((*player).position.x+1 > 11 || (*board)[(*player).position.x+1][(*player).position.y] == BLOCKED){
+            cout << "Player cannot move forward" << endl;
+        }
+        else {
+            (*board)[(*player).position.x+1][(*player).position.y] = PLAYER;
+            (*board)[(*player).position.x][(*player).position.y] = EMPTY;
+            (*player).position.x = (*player).position.x+1;
+        }
+    }
+
+    if ((*player).direction == NORTH){
+        if ((*player).position.x-1 < 1 || (*board)[(*player).position.x-1][(*player).position.y] == BLOCKED){
+            cout << "Player cannot move forward" << endl;
+        }
+        else {
+            (*board)[(*player).position.x-1][(*player).position.y] = PLAYER;
+            (*board)[(*player).position.x][(*player).position.y] = EMPTY;
+            (*player).position.x = (*player).position.x-1;
+        }
+    }
+
+    if ((*player).direction == WEST){
+        if ((*player).position.y-1 < 1 || (*board)[(*player).position.x][(*player).position.y-1] == BLOCKED){
+            cout << "Player cannot move forward" << endl;
+        }
+        else {
+            (*board)[(*player).position.x][(*player).position.y-1] = PLAYER;
+            (*board)[(*player).position.x][(*player).position.y] = EMPTY;
+            (*player).position.y = (*player).position.y-1;
+        }
+    }
+
+    if ((*player).direction == EAST){
+        if ((*player).position.y+1 > 11 || (*board)[(*player).position.x][(*player).position.y+1] == BLOCKED){
+            cout << "Player cannot move forward" << endl;
+        }
+        else {
+            (*board)[(*player).position.x][(*player).position.y+1] = PLAYER;
+            (*board)[(*player).position.x][(*player).position.y] = EMPTY;
+            (*player).position.y = (*player).position.y+1;
+        }
+    }
     return PLAYER_MOVED;
 }
 

@@ -32,6 +32,37 @@ void Player::initialisePlayer(Position* position, Direction direction)
 void Player::turnDirection(TurnDirection turnDirection)
 {
     //TODO
+    //cout << "turnDirection" << turnDirection << endl;
+    if (turnDirection == TURN_LEFT){
+        //cout<< "turn left" << endl;
+        if (this->direction == NORTH){
+            this->direction = WEST;
+        }
+        else if (this->direction == WEST){
+            this->direction = SOUTH;
+        }
+        else if (this->direction == SOUTH){
+            this->direction = EAST;
+        }
+        else if (this->direction == EAST){
+            this->direction = NORTH;
+        }
+    }
+    else{
+        //cout<< "turn right" << endl;
+        if (this->direction == NORTH){
+            this->direction = EAST;
+        }
+        else if (this->direction == EAST){
+            this->direction = SOUTH;
+        }
+        else if (this->direction == SOUTH){
+            this->direction = WEST;
+        }
+        else if (this->direction == WEST){
+            this->direction = NORTH;
+        }
+    }
 }
 
 Position Player::getNextForwardPosition()

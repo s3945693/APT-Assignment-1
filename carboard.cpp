@@ -205,20 +205,9 @@ int main()
                     //intPlayer(startPos, startPosVec);
                     //*/
                     if (command != "quit"){
-                        string gamer;
-                        cout << "enter forward, turn_left, turn_right, r, l, or quit:" << endl;
-                        getline(cin, gamer);
-                        while (gamer != "quit"){
-                            if (gamer == "forward" || gamer == "urn_left" || gamer == "turn_right " || gamer == "r" || gamer == "l"){
-                                cout << "enter next command:" << endl;
-                                getline(cin, gamer);
-                                
-                            }
-                            else{
-                                cout << "Invalid command. Please enter a valid command: ";
-                                getline(cin, gamer);
-                            }
-                        }
+                        
+                        game.start();
+
                     }
                     cout << "end of init" << endl;
                     command = "quit";
@@ -239,9 +228,9 @@ int main()
 void showStudentInformation(){
     // TODO
     cout << "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" << endl;
-    cout << "Name: replace iwith name" << endl;
-    cout << "No: REPLACE THIS WITH ID" << endl;
-    cout << "Email: REPLACE THIS WITH EMAIL" << endl;
+    cout << "Name: Brendon Rodrigues" << endl;
+    cout << "No: s3945693" << endl;
+    cout << "Email: s3945693@student.rmit.edu.au" << endl;
 }
 
 int mainMenu(){

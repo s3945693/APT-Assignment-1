@@ -36,6 +36,34 @@ Game::~Game()
 void Game::start()
 {
     //TODO
+    string gamer;
+    cout << "enter forward, turn_left, turn_right, r, l, or quit:" << endl;
+    getline(cin, gamer);
+    while (gamer != "quit"){
+        if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right " || gamer == "r" || gamer == "l"){
+            if (gamer == "turn_left" || gamer == "l"){
+                //cout << "should turn left" << endl;
+                (*player).turnDirection(TURN_LEFT);
+            }
+            else if (gamer == "turn_right" || gamer == "r"){
+                //cout << "should turn right" << endl;
+                (*player).turnDirection(TURN_RIGHT);
+            }
+            else if (gamer == "forward" || gamer == "f"){
+                //cout <<"go forword" << endl;
+                (*board).movePlayerForward(player);
+            }
+            (*board).display(player);
+            
+            cout << "enter next command:" << endl;
+            getline(cin, gamer);
+            
+        }
+        else{
+            cout << "Invalid command. Please enter a valid command: ";
+            getline(cin, gamer);
+        }
+    }
 }
 
 bool Game::loadBoard()
@@ -96,6 +124,7 @@ bool Game::initializePlayer()
 void Game::play()
 {
     //TODO
+
 }
 
 void Game::displayNoPlayer()
