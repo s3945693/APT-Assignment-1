@@ -99,6 +99,8 @@ Board::~Board()
 void Board::load(int boardId)
 {
     // TODO
+    delete board;
+    board = new vector<vector<Cell>>(11, vector<Cell>(11, EMPTY));
     string boardGameStr[11][11] = { " " };
     
     //todo if baordId isNot valid, loop till valid
@@ -203,7 +205,7 @@ PlayerMove Board::movePlayerForward(Player* player)
         }
     }
     else if (player->direction == WEST){
-        
+
         if ((*board)[player->position.x][player->position.y-1] == BLOCKED) {
             cout << "player hit wall" << endl;
         }
