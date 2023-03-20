@@ -174,35 +174,41 @@ bool Board::placePlayer(Position position)
 PlayerMove Board::movePlayerForward(Player* player)
 {
     // TODO
+    cout << "in move player forward class::board" << endl;
+    cout << "player direction: " << (*player).direction << endl;
+    cout << "player position x: " << (*player).position.x << " position y: " << (*player).position.y << endl;
     if ((*player).direction == SOUTH){
-        if ((*player).position.x+1 > 11 || (*board)[(*player).position.x+1][(*player).position.y] == BLOCKED){
+        if ((*player).position.x+1 > 12 || (*board)[(*player).position.x+1][(*player).position.y] == BLOCKED){
             cout << "Player cannot move forward" << endl;
         }
         else {
-            (*board)[(*player).position.x+1][(*player).position.y] = PLAYER;
             (*board)[(*player).position.x][(*player).position.y] = EMPTY;
+            (*board)[(*player).position.x+1][(*player).position.y] = PLAYER;
+            
             (*player).position.x = (*player).position.x+1;
         }
     }
 
     if ((*player).direction == NORTH){
-        if ((*player).position.x-1 < 1 || (*board)[(*player).position.x-1][(*player).position.y] == BLOCKED){
+        if ((*player).position.x-1 < 0 || (*board)[(*player).position.x-1][(*player).position.y] == BLOCKED){
             cout << "Player cannot move forward" << endl;
         }
         else {
-            (*board)[(*player).position.x-1][(*player).position.y] = PLAYER;
             (*board)[(*player).position.x][(*player).position.y] = EMPTY;
+            (*board)[(*player).position.x-1][(*player).position.y] = PLAYER;
+            
             (*player).position.x = (*player).position.x-1;
         }
     }
 
     if ((*player).direction == WEST){
-        if ((*player).position.y-1 < 1 || (*board)[(*player).position.x][(*player).position.y-1] == BLOCKED){
+        if ((*player).position.y-1 < 0 || (*board)[(*player).position.x][(*player).position.y-1] == BLOCKED){
             cout << "Player cannot move forward" << endl;
         }
         else {
-            (*board)[(*player).position.x][(*player).position.y-1] = PLAYER;
             (*board)[(*player).position.x][(*player).position.y] = EMPTY;
+            (*board)[(*player).position.x][(*player).position.y-1] = PLAYER;
+            
             (*player).position.y = (*player).position.y-1;
         }
     }
@@ -212,11 +218,15 @@ PlayerMove Board::movePlayerForward(Player* player)
             cout << "Player cannot move forward" << endl;
         }
         else {
-            (*board)[(*player).position.x][(*player).position.y+1] = PLAYER;
             (*board)[(*player).position.x][(*player).position.y] = EMPTY;
+            (*board)[(*player).position.x][(*player).position.y+1] = PLAYER;
+            
             (*player).position.y = (*player).position.y+1;
         }
     }
+    cout << "in end of move player forward class::board" << endl;
+    cout << "player direction: " << (*player).direction << endl;
+    cout << "player position x: " << (*player).position.x << " position y: " << (*player).position.y << endl;
     return PLAYER_MOVED;
 }
 
