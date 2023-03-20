@@ -5,7 +5,7 @@
 #include "helper.h"
 #include "board.h"
 #include "player.h"
-
+using std::string;
 // strings used for input validation
 #define COMMAND_LOAD "load"
 #define COMMAND_INIT "init"
@@ -58,7 +58,12 @@ public:
     void displayNoPlayer();
     void displayVoidBoard();
     int intPlayer(int x,int y, int z);
-    /**
+
+
+    void loadBoardLoop(string& command);
+
+    void initPlayerLoop(string& command);
+        /**
      * Main menu option 1 - play the game as per the specification.
      *
      * This method should call other methods in this class in the following order:

@@ -67,27 +67,7 @@ Board::Board()
         }
         //cout << endl;
     }
-    /*
-    string boardGameStr[11][11] = { " " };
-    for (int s = 0; s <11; s++){
-        for (int t =0; t < 11; t++){
-            if (s == 0 && t == 0){
-                boardGameStr[s][t] = "|   |";
-            }
-            else if (s == 0) {
-                boardGameStr[s][t] = std::to_string(t-1)+" |";
-            }
-            else if (s != 0 && t == 0) {
-                boardGameStr[s][t] = "| "+ std::to_string(s-1)+" |";
-            }
-            else {
-                boardGameStr[s][t] = "  |";
-            }
-            //cout << boardGameStr[s][t] << " ";  
-        }
-        //cout << endl;
-    }
-    */
+
 
 }
 
@@ -168,18 +148,22 @@ void Board::load(int boardId)
 
 bool Board::placePlayer(Position position)
 {
-    // TODO
-    //cout<< "in place player class::board"<< endl;
+    if (position.x >0 && position.x <10 && position.y >0 && position.y <10) {
+        if ((*board)[position.x][position.y] == BLOCKED) {
+            cout << "cant place player here" << endl;
+            return false;
+        }
+        else {
+            (*board)[position.x][position.y] = PLAYER;
+            return true;
+        }
+    }
+    else {
+        cout << "out of bounds area" << endl;
+        return false;
+    }
 
-    //deref a baord not working
-    //cout<<"player position x: "<< position.x+1 << " position y: " << position.y+1 << endl;
-    //cout << "board vecotr pointer in board::class: " <<this->board << endl;
-
-    (*board)[position.x][position.y] = PLAYER;
-    //cout<< "test[position.x+1][position.y+1] = PLAYER;" << endl;
-    //this->board->at(position.x+1).at(position.y+1) = PLAYER;
-    //cout << "placed player board::class" << endl;
-    return true; // feel free to revise this line, depending on your implementation.
+ // feel free to revise this line, depending on your implementation.
 }
 
 PlayerMove Board::movePlayerForward(Player* player)
