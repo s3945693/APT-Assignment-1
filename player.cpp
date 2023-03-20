@@ -12,8 +12,8 @@ Position::Position()
 Position::Position(int x, int y)
 {
     //TODO
-    this->x = x;
-    this->y = y;
+    this->x = x+1;
+    this->y = y+1;
 }
 
 Player::Player()

@@ -37,7 +37,7 @@ void Game::start()
 {
     //TODO
     string gamer;
-    cout << "enter forward, turn_left, turn_right, r, l, or quit:" << endl;
+    cout << "enter forward, turn_left, turn_right, r, l, or quit: ";
     getline(cin, gamer);
     while (gamer != "quit"){
         if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right " || gamer == "r" || gamer == "l"){
@@ -55,7 +55,7 @@ void Game::start()
             }
             (*board).display(player);
             
-            cout << "enter next command:" << endl;
+            cout << "enter next command: ";
             getline(cin, gamer);
             
         }
