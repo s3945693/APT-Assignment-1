@@ -188,12 +188,14 @@ PlayerMove Board::movePlayerForward(Player* player)
     //cout << "player position x: " << (*player).position.x << " position y: " << (*player).position.y << endl;
     
     if (player->direction == EAST){
-        if ((*board)[player->position.x][player->position.y+1] == BLOCKED) {
-            cout << "player hit wall" << endl;
-        }
-        else if (player->position.y+1 >10){
+        if (player->position.y+1 >10){
             cout << "out of bounds area" << endl;
         }
+
+        else if ((*board)[player->position.x][player->position.y+1] == BLOCKED) {
+            cout << "player hit wall" << endl;
+        }
+
         else {
             (*board)[player->position.x][player->position.y+1] = PLAYER;
             (*board)[player->position.x][player->position.y] = EMPTY;
@@ -201,6 +203,7 @@ PlayerMove Board::movePlayerForward(Player* player)
         }
     }
     else if (player->direction == WEST){
+        
         if ((*board)[player->position.x][player->position.y-1] == BLOCKED) {
             cout << "player hit wall" << endl;
         }
@@ -212,18 +215,18 @@ PlayerMove Board::movePlayerForward(Player* player)
     }
     else if (player->direction == SOUTH){
         cout <<"this is executing: " << player->position.x+1 << endl;
-        if ((*board)[player->position.x+1][player->position.y] == BLOCKED) {
-            cout << "player hit wall" << endl;
-        }
-        
-        else if (player->position.x+1 >10){
+        if (player->position.x+1 >10){
             cout << "out of bounds area" << endl;
+        }
+        else if ((*board)[player->position.x+1][player->position.y] == BLOCKED) {
+            cout << "player hit wall" << endl;
         }
 
         else {
             (*board)[player->position.x+1][player->position.y] = PLAYER;
             (*board)[player->position.x][player->position.y] = EMPTY;
             player->position.x = player->position.x+1;
+            
         }
     }
     else if (player->direction == NORTH){
