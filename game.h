@@ -63,6 +63,8 @@ public:
     void loadBoardLoop(string& command);
 
     void initPlayerLoop(string& command);
+
+    int getPlayerMoves();
         /**
      * Main menu option 1 - play the game as per the specification.
      *

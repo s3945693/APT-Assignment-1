@@ -186,6 +186,7 @@ PlayerMove Board::movePlayerForward(Player* player)
             (*board)[player->position.x][player->position.y+1] = PLAYER;
             (*board)[player->position.x][player->position.y] = EMPTY;
             player->position.y = player->position.y+1;
+            player->moves++;
         }
     }
     else if (player->direction == WEST){
@@ -197,6 +198,7 @@ PlayerMove Board::movePlayerForward(Player* player)
             (*board)[player->position.x][player->position.y-1] = PLAYER;
             (*board)[player->position.x][player->position.y] = EMPTY;
             player->position.y = player->position.y-1;
+            player->moves++;
         }
     }
     else if (player->direction == SOUTH){
@@ -212,6 +214,7 @@ PlayerMove Board::movePlayerForward(Player* player)
             (*board)[player->position.x+1][player->position.y] = PLAYER;
             (*board)[player->position.x][player->position.y] = EMPTY;
             player->position.x = player->position.x+1;
+            player->moves++;
             
         }
     }
@@ -223,6 +226,7 @@ PlayerMove Board::movePlayerForward(Player* player)
             (*board)[player->position.x-1][player->position.y] = PLAYER;
             (*board)[player->position.x][player->position.y] = EMPTY;
             player->position.x = player->position.x-1;
+            player->moves++;
         }
     }
 

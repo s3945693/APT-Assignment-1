@@ -114,148 +114,152 @@ int Game::intPlayer(int x, int y, int z)
 }
 
 void Game::loadBoardLoop(string& command){
-                cout << "Select to load<g> or quit the game: ";
-                getline(cin, command);
-                //cout <<"made it here" << endl;
-                cout << endl;
- 
-                vector<string> loadVector;
-                
-                Helper::splitString(command, loadVector, " ");
-                bool valid = true;
-                while (valid){
-                    if (loadVector.size() == 1){
-                        if (loadVector[0] == "quit"){
-                            valid = false;
-                            command = "quit";
-                        }
-                    }
-                    
-                    else if (loadVector.size() == 2){
-                        if (loadVector[0] == "load"){
-                            if (Helper::isNumber(loadVector[1])){
-                                if (stoi(loadVector[1]) == 1 || stoi(loadVector[1]) == 2){
-                                    valid = false;
-                                    loadBoardNumber(stoi(loadVector[1]));
-                                    cout << endl;
-                                }
-                            }
-                        }
-                    }
-                    if (valid == true){
+    cout << "Select to load<g> or quit the game: ";
+    getline(cin, command);
+    //cout <<"made it here" << endl;
+    cout << endl;
 
-                        Game::displayVoidBoard();
-                        cout << "\nInvalid command. Select to load<g> or quit the game: ";
-                        getline(cin, command);
+    vector<string> loadVector;
+    
+    Helper::splitString(command, loadVector, " ");
+    bool valid = true;
+    while (valid){
+        if (loadVector.size() == 1){
+            if (loadVector[0] == "quit"){
+                valid = false;
+                command = "quit";
+            }
+        }
+        
+        else if (loadVector.size() == 2){
+            if (loadVector[0] == "load"){
+                if (Helper::isNumber(loadVector[1])){
+                    if (stoi(loadVector[1]) == 1 || stoi(loadVector[1]) == 2){
+                        valid = false;
+                        loadBoardNumber(stoi(loadVector[1]));
                         cout << endl;
-                        Helper::splitString(command, loadVector, " ");
                     }
                 }
+            }
+        }
+        if (valid == true){
+
+            Game::displayVoidBoard();
+            cout << "\nInvalid command. Select to load<g> or quit the game: ";
+            getline(cin, command);
+            cout << endl;
+            Helper::splitString(command, loadVector, " ");
+        }
+    }
 }
 
 void Game::initPlayerLoop(string& command){
     
-                    cout << "Select either:" << endl;
-                    cout << "1. Load <g>" << endl;
-                    cout << "2. Init <x>,<y>,<direction>" << endl;
-                    cout << "3. Quit" << endl;
-                    cout << "Enter your choice: ";
-                    string startPos;
-                    getline(cin, command);
-                    cout << endl;
-                    vector<string> startPosVec;                    
-                    ///*
-                    Helper::splitString(command, startPosVec, " ");
-                    //cout << "splitString worked" << endl;
-                    bool valid1 = true;
-                    bool valid2 = false;
-                    while (valid1){
-                        //cout<< "command was: " <<command<<endl;
-                        if (startPosVec.size() == 1){
-                            //cout<< "size 1 command was: " <<command<<endl;
-                            if (startPosVec[0] == "quit"){
+    cout << "Select either:" << endl;
+    cout << "1. Load <g>" << endl;
+    cout << "2. Init <x>,<y>,<direction>" << endl;
+    cout << "3. Quit" << endl;
+    cout << "Enter your choice: ";
+    string startPos;
+    getline(cin, command);
+    cout << endl;
+    vector<string> startPosVec;                    
+    ///*
+    Helper::splitString(command, startPosVec, " ");
+    //cout << "splitString worked" << endl;
+    bool valid1 = true;
+    bool valid2 = false;
+    while (valid1){
+        //cout<< "command was: " <<command<<endl;
+        if (startPosVec.size() == 1){
+            //cout<< "size 1 command was: " <<command<<endl;
+            if (startPosVec[0] == "quit"){
+                valid1 = false;
+                command = "quit";
+                valid2 = true;
+            }
+        }
+        
+        else if (startPosVec.size() == 2){
+            //cout<< "size 2 command was: " <<command<<endl;
+            if (startPosVec[0] == "load"){
+                if (Helper::isNumber(startPosVec[1])){
+                    //cout << "made it into isNumber" << endl;
+                    //cout << "loadVector[1] was: " << loadVector[1] <<"d" << endl;
+                    if (stoi(startPosVec[1]) == 1 || stoi(startPosVec[1]) == 2){
+                        //cout << "made it into stoi" << endl;
+
+                        //cout << "got here" <<endl;
+                        loadBoardNumber(stoi(startPosVec[1]));
+                        valid2 = true;
+                        //cout <<"got here" <<endl;
+                        //valid1 = false;
+                    }
+                }
+            }
+
+            if (startPosVec[0] == "init"){
+
+                Helper::splitString(startPosVec[1], startPosVec, ",");
+                if (startPosVec.size() == 3){
+                    if (Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
+                        if (startPosVec[2] == "N" || startPosVec[2] == "E" || startPosVec[2] == "S" || startPosVec[2] == "W"){
+
+                            int x = stoi(startPosVec[0]);
+                            int y = stoi(startPosVec[1]);
+                            string direction = startPosVec[2];
+                            ///*
+                            if (board->placePlayer(Position(x,y)) == true){
+                                
+                                if (direction == "N"){
+                                    // check if valid position for board due to out of bounds
+                                    intPlayer(x,y,0);
+                                    
+                                }
+                                if (direction == "E"){
+                                    intPlayer(x,y,1);
+                                }
+                                if (direction == "S"){
+                                    intPlayer(x,y,2);
+                                }
+                                if (direction == "W"){
+                                    intPlayer(x,y,3);
+                                }
                                 valid1 = false;
-                                command = "quit";
                                 valid2 = true;
                             }
-                        }
-                        
-                        else if (startPosVec.size() == 2){
-                            //cout<< "size 2 command was: " <<command<<endl;
-                            if (startPosVec[0] == "load"){
-                                if (Helper::isNumber(startPosVec[1])){
-                                    //cout << "made it into isNumber" << endl;
-                                    //cout << "loadVector[1] was: " << loadVector[1] <<"d" << endl;
-                                    if (stoi(startPosVec[1]) == 1 || stoi(startPosVec[1]) == 2){
-                                        //cout << "made it into stoi" << endl;
-
-                                        //cout << "got here" <<endl;
-                                        loadBoardNumber(stoi(startPosVec[1]));
-                                        valid2 = true;
-                                        //cout <<"got here" <<endl;
-                                        //valid1 = false;
-                                    }
-                                }
-                            }
-
-                            if (startPosVec[0] == "init"){
-
-                                Helper::splitString(startPosVec[1], startPosVec, ",");
-                                if (startPosVec.size() == 3){
-                                    if (Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
-                                        if (startPosVec[2] == "N" || startPosVec[2] == "E" || startPosVec[2] == "S" || startPosVec[2] == "W"){
-
-                                            int x = stoi(startPosVec[0]);
-                                            int y = stoi(startPosVec[1]);
-                                            string direction = startPosVec[2];
-                                            ///*
-                                            if (board->placePlayer(Position(x,y)) == true){
-                                                
-                                                if (direction == "N"){
-                                                    // check if valid position for board due to out of bounds
-                                                    intPlayer(x,y,0);
-                                                   
-                                                }
-                                                if (direction == "E"){
-                                                    intPlayer(x,y,1);
-                                                }
-                                                if (direction == "S"){
-                                                    intPlayer(x,y,2);
-                                                }
-                                                if (direction == "W"){
-                                                    intPlayer(x,y,3);
-                                                }
-                                                valid1 = false;
-                                                valid2 = true;
-                                            }
-                                            
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-                        
-                        if (valid1 == true){
-
-                            if (valid2 == false){
-                            cout << "\nInvalid command.";
-                            }
-                            cout << endl;
-                            if (valid2 == false){
-                            displayNoPlayer();
-                            }
-                            cout << "Select either:" << endl;
-                            cout << "1. Load <g>" << endl;
-                            cout << "2. Init <x>,<y>,<direction>" << endl;
-                            cout << "3. Quit" << endl;
-                            cout << "Enter your choice: ";
-                            getline(cin, command);
-                            cout << endl;
-                            Helper::splitString(command, startPosVec, " ");
-                            valid2 = false;
+                            
                         }
                     }
+                }
+            }
+
+        }
+        
+        if (valid1 == true){
+
+            if (valid2 == false){
+            cout << "\nInvalid command.";
+            }
+            cout << endl;
+            if (valid2 == false){
+            displayNoPlayer();
+            }
+            cout << "Select either:" << endl;
+            cout << "1. Load <g>" << endl;
+            cout << "2. Init <x>,<y>,<direction>" << endl;
+            cout << "3. Quit" << endl;
+            cout << "Enter your choice: ";
+            getline(cin, command);
+            cout << endl;
+            Helper::splitString(command, startPosVec, " ");
+            valid2 = false;
+        }
+    }
+}
+
+int Game::getPlayerMoves(){
+    return player->moves;
 }
 
 bool Game::initializePlayer()
