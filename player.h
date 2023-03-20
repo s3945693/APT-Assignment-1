@@ -78,12 +78,14 @@ public:
 	 * Note the new position can be outside the bounds of the board and could be on
 	 * a blocked cell. Also note that you should not modify the current position of
 	 * the player.
+	 * unused
 	 */
 	Position getNextForwardPosition();
 
 	/**
 	 * Set the player's position to the provided position. Also increment the
 	 * moves count.
+	 * unused
 	 */
 	void updatePosition(Position position);
 
@@ -93,6 +95,7 @@ public:
 	 *
 	 * For example to print the north arrow:
 	 *     printf(DIRECTION_ARROW_OUTPUT_NORTH);
+	 * unused
 	 */
 	void displayDirection();
 };

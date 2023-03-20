@@ -54,17 +54,28 @@ public:
     // initialize and destroy the member variables
     Game();
     ~Game();
+
+    //calls upon board.load to load the associated board
     void loadBoardNumber(int x);
+
+    //displays a board with no player
     void displayNoPlayer();
+
+    //displays an unloaded board
     void displayVoidBoard();
     int intPlayer(int x,int y, int z);
 
-
+    //loops and checks for valid input for the load board function
     void loadBoardLoop(string& command);
 
+
+    //loops and checks for valid input for the init player function and load board function
     void initPlayerLoop(string& command);
 
+    //returns the amount of moves the player has made
     int getPlayerMoves();
+
+
         /**
      * Main menu option 1 - play the game as per the specification.
      *
@@ -76,6 +87,9 @@ public:
      * These methods should in turn make all the calls to methods in board & player 
      * objects and handle interaction with the user (reading inputs from the console,
      * error checking, etc...).
+     * 
+     * used while playing the game
+     
      */
     void start();
 };
