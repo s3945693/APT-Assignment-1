@@ -10,7 +10,7 @@ using std::cin;
 using std::exit;
 using std::vector;
 using std::getline;
-
+//add eof error, init 9,9 just doiestn work, implement f for forward
 
 void showStudentInformation();
 int mainMenu();
