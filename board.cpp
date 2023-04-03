@@ -85,7 +85,7 @@ void Board::resizeBoard(int row, double prob) {
     std::mt19937 gen(rd()); // seed the generator
     std::uniform_int_distribution<> distr(0, row+1); // define the range
 
-    for(int n=0; n<row+1; ++n){
+    for(int n=0; n<randomCells+1; ++n){
         int i = distr(gen);
         int j = distr(gen);
         if (i == 0 && j == 0){
