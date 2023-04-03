@@ -158,6 +158,7 @@ void Game::initPlayerLoop(string& command){
     cout << "Select either:" << endl;
     cout << "1. Load <g>" << endl;
     cout << "2. Init <x>,<y>,<direction>" << endl;
+    cout << "3. Generate " << endl;
     cout << "3. Quit" << endl;
     cout << "Enter your choice: ";
     string startPos;
@@ -270,6 +271,7 @@ void Game::initPlayerLoop(string& command){
             cout << "Select either:" << endl;
             cout << "1. Load <g>" << endl;
             cout << "2. Init <x>,<y>,<direction>" << endl;
+            cout << "3. Generate " << endl;
             cout << "3. Quit" << endl;
             cout << "Enter your choice: ";
             getline(cin, command);
