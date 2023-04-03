@@ -83,22 +83,23 @@ void Board::resizeBoard(int row, double prob) {
 
     std::random_device rd; // obtain a random number from hardware
     std::mt19937 gen(rd()); // seed the generator
-    std::uniform_int_distribution<> distr(0, row+1); // define the range
-
-    for(int n=0; n<randomCells+1; ++n){
+    std::uniform_int_distribution<> distr(0, row); // define the range
+    //cout << "got here " << endl;
+    for(int n=randomCells; n>0; n--){
         int i = distr(gen);
         int j = distr(gen);
+        cout << "i: " << i << " j: " << j << endl;
         if (i == 0 && j == 0){
             (*board)[i][j] = BLOCKED;
-            n-=1;
+            n+=1;
         }
         else if (i == 0) {
             (*board)[i][j] = BLOCKED;
-            n-=1;
+            n+=1;
         }
         else if (i!= 0 && j == 0) {
             (*board)[i][j] = BLOCKED;
-            n-=1;
+            n+=1;
         }
         else {
             (*board)[i][j] = BLOCKED;
