@@ -40,15 +40,12 @@ Board::Board()
 {
     // TODO
     
-    
-    board = new vector<vector<Cell>>(11, vector<Cell>(11, EMPTY));
+    boardDimension = new int(11);
+    board = new vector<vector<Cell>>(*boardDimension, vector<Cell>(*boardDimension, EMPTY));
     //cout << "This is boardGame ref in class::board init: "<< board << endl;
     //cout << this->board << endl;
-    
-
- 
-    for (int i = 0; i<11; i++) {
-        for (int j = 0; j<11; j++) {
+    for (int i = 0; i<*boardDimension; i++) {
+        for (int j = 0; j<*boardDimension; j++) {
             
             //boardGame[i][j] = emp;
             if (i == 0 && j == 0){
@@ -67,36 +64,101 @@ Board::Board()
         }
         //cout << endl;
     }
-
-
 }
 
 Board::~Board()
 {
     delete board;
+    delete boardDimension;
+}
+
+void Board::resizeBoard(int row, double prob) {
+    delete board;
+    delete boardDimension;
+
+    boardDimension = new int(row+1);
+    board = new vector<vector<Cell>>(*boardDimension, vector<Cell>(*boardDimension, EMPTY));
+
+    int randomCells = (row*row)*prob;
+
+    std::random_device rd; // obtain a random number from hardware
+    std::mt19937 gen(rd()); // seed the generator
+    std::uniform_int_distribution<> distr(0, row+1); // define the range
+
+    for(int n=0; n<row+1; ++n){
+        int i = distr(gen);
+        int j = distr(gen);
+        if (i == 0 && j == 0){
+            (*board)[i][j] = BLOCKED;
+            n-=1;
+        }
+        else if (i == 0) {
+            (*board)[i][j] = BLOCKED;
+            n-=1;
+        }
+        else if (i!= 0 && j == 0) {
+            (*board)[i][j] = BLOCKED;
+            n-=1;
+        }
+        else {
+            (*board)[i][j] = BLOCKED;
+        }
+    }
+        
+
+    string boardGameStr[*boardDimension][*boardDimension] = { " " };
+    for (int s=0; s<*boardDimension; s++) {
+        for (int t=0; t<*boardDimension; t++) {
+            if (s == 0 && t == 0){
+                boardGameStr[s][t] = "| |";
+            }
+            else if (s == 0) {
+                if (t>10){
+                    boardGameStr[s][t] = std::to_string(t-11)+"|";
+                }
+                else{
+                boardGameStr[s][t] = std::to_string(t-1)+"|";
+                }
+            }
+            else if (s != 0 && t == 0) {
+                if (s>10){
+                    boardGameStr[s][t] = "|"+ std::to_string(s-11)+"|";
+                    }
+                else{
+                    boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
+                    }
+                
+            }
+            
+            cout << boardGameStr[s][t];
+        }
+        cout << endl;
+    }
+
+
 }
 
 void Board::load(int boardId)
 {
     // TODO
     delete board;
-    board = new vector<vector<Cell>>(11, vector<Cell>(11, EMPTY));
-    string boardGameStr[11][11] = { " " };
+    board = new vector<vector<Cell>>(*boardDimension, vector<Cell>(*boardDimension, EMPTY));
+    string boardGameStr[*boardDimension][*boardDimension] = { " " };
     
     //todo if baordId isNot valid, loop till valid
-    for (int i = 0; i<11; i++){
+    for (int i = 0; i<*boardDimension; i++){
         for (int j = 0; j<1; j++){
             (*board)[i][j] = BLOCKED;
         }
     }
     for (int i = 0; i <1; i++){
-        for (int j = 0; j<11; j++){
+        for (int j = 0; j<*boardDimension; j++){
             (*board)[i][j] = BLOCKED;
         }
     }
 
-    for (int i =1; i<11; i++) {
-        for (int j = 1; j<11; j++) {
+    for (int i =1; i<*boardDimension; i++) {
+        for (int j = 1; j<*boardDimension; j++) {
             if (boardId == 1) {
                 if (BOARD_1[i-1][j-1] == BLOCKED) {
                     boardGameStr[i][j] = "*|";
@@ -127,16 +189,27 @@ void Board::load(int boardId)
 
     }
 
-    for (int s=0; s<11; s++) {
-        for (int t=0; t<11; t++) {
+    for (int s=0; s<*boardDimension; s++) {
+        for (int t=0; t<*boardDimension; t++) {
             if (s == 0 && t == 0){
                 boardGameStr[s][t] = "| |";
             }
             else if (s == 0) {
+                if (t>10){
+                    boardGameStr[s][t] = std::to_string(t-11)+"|";
+                }
+                else{
                 boardGameStr[s][t] = std::to_string(t-1)+"|";
+                }
             }
             else if (s != 0 && t == 0) {
-                boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
+                if (s>10){
+                    boardGameStr[s][t] = "|"+ std::to_string(s-11)+"|";
+                    }
+                else{
+                    boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
+                    }
+                
             }
             
             cout << boardGameStr[s][t];
@@ -148,7 +221,7 @@ void Board::load(int boardId)
 
 bool Board::placePlayer(Position position)
 {
-    if (position.x >0 && position.x <10 && position.y >0 && position.y <10) {
+    if (position.x >0 && position.x <*boardDimension && position.y >0 && position.y <*boardDimension) {
         if ((*board)[position.x][position.y] == BLOCKED) {
             cout << "cant place player here" << endl;
             return false;
@@ -174,7 +247,7 @@ PlayerMove Board::movePlayerForward(Player* player)
     //cout << "player position x: " << (*player).position.x << " position y: " << (*player).position.y << endl;
     
     if (player->direction == EAST){
-        if (player->position.y+1 >10){
+        if (player->position.y+1 >*boardDimension-1){
             cout << "out of bounds area" << endl;
         }
 
@@ -205,7 +278,7 @@ PlayerMove Board::movePlayerForward(Player* player)
     }
     else if (player->direction == SOUTH){
         //cout <<"this is executing: " << player->position.x+1 << endl;
-        if (player->position.x+1 >10){
+        if (player->position.x+1 >*boardDimension-1){
             cout << "out of bounds area" << endl;
         }
         else if ((*board)[player->position.x+1][player->position.y] == BLOCKED) {
@@ -245,7 +318,7 @@ PlayerMove Board::movePlayerForward(Player* player)
 void Board::display(Player* player)
 {
     // TODO
-    string boardGameStr[11][11] = { " " };
+    string boardGameStr[*boardDimension][*boardDimension] = { " " };
     //todo if baordId isNot valid, loop till valid
    
     //cout << "created test in board.cpp" << endl;
@@ -255,8 +328,8 @@ void Board::display(Player* player)
     //t1 = *player;
     //test[t1.position.x][t1.position.y] = PLAYER;
     //cout<< "printing board address in baord::class" << board << endl;
-    for (int i =1; i<11; i++) {
-        for (int j = 1; j<11; j++) {
+    for (int i =1; i<*boardDimension; i++) {
+        for (int j = 1; j<*boardDimension; j++) {
                 
                 if ((*board)[i][j] == BLOCKED) {
                     boardGameStr[i][j] = "*|";
@@ -287,17 +360,27 @@ void Board::display(Player* player)
 
     }
 
-    for (int s=0; s<11; s++) {
-        for (int t=0; t<11; t++) {
+    for (int s=0; s<*boardDimension; s++) {
+        for (int t=0; t<*boardDimension; t++) {
             if (s == 0 && t == 0){
                 boardGameStr[s][t] = "| |";
             }
             else if (s == 0) {
+                if (t>10){
+                    boardGameStr[s][t] = std::to_string(t-11)+"|";
+                }
+                else{
                 boardGameStr[s][t] = std::to_string(t-1)+"|";
+                }
             }
             else if (s != 0 && t == 0) {
-                boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
-            }
+                if (s>10){
+                    boardGameStr[s][t] = "|"+ std::to_string(s-11)+"|";
+                    }
+                else{
+                    boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
+                    }
+            }  
             
             cout << boardGameStr[s][t];
         }
@@ -309,17 +392,27 @@ void Board::display(Player* player)
 void Board::pBoard()
 {
     // TODO
-    string boardGameStr[11][11] = { " " };
-    for (int s = 0; s <11; s++){
-        for (int t =0; t < 11; t++){
+    string boardGameStr[*boardDimension][*boardDimension] = { " " };
+    for (int s = 0; s <*boardDimension; s++){
+        for (int t =0; t < *boardDimension; t++){
             if (s == 0 && t == 0){
                 boardGameStr[s][t] = "| |";
             }
             else if (s == 0) {
+                if (t>10){
+                    boardGameStr[s][t] = std::to_string(t-11)+"|";
+                }
+                else{
                 boardGameStr[s][t] = std::to_string(t-1)+"|";
+                }
             }
             else if (s != 0 && t == 0) {
-                boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
+                if (s>10){
+                    boardGameStr[s][t] = "|"+ std::to_string(s-11)+"|";
+                    }
+                else{
+                    boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
+                    }
             }
             else {
                 boardGameStr[s][t] = " |";
@@ -331,7 +424,7 @@ void Board::pBoard()
 }
 
 void Board::pBoardNoPlayer(){
-    string boardGameStr[11][11] = { " " };
+    string boardGameStr[*boardDimension][*boardDimension] = { " " };
     //todo if baordId isNot valid, loop till valid
    
     //cout << "created test in board.cpp" << endl;
@@ -341,8 +434,8 @@ void Board::pBoardNoPlayer(){
     //t1 = *player;
     //test[t1.position.x][t1.position.y] = PLAYER;
     //cout<< "printing board address in baord::class" << board << endl;
-    for (int i =1; i<11; i++) {
-        for (int j = 1; j<11; j++) {
+    for (int i =1; i<*boardDimension; i++) {
+        for (int j = 1; j<*boardDimension; j++) {
                 if ((*board)[i][j] == BLOCKED) {
                     boardGameStr[i][j] = "*|";
                     //next line creates a seg fault
@@ -356,16 +449,26 @@ void Board::pBoardNoPlayer(){
 
     }
 
-    for (int s=0; s<11; s++) {
-        for (int t=0; t<11; t++) {
+    for (int s=0; s<*boardDimension; s++) {
+        for (int t=0; t<*boardDimension; t++) {
             if (s == 0 && t == 0){
                 boardGameStr[s][t] = "| |";
             }
             else if (s == 0) {
+                if (t>10){
+                    boardGameStr[s][t] = std::to_string(t-11)+"|";
+                }
+                else{
                 boardGameStr[s][t] = std::to_string(t-1)+"|";
+                }
             }
             else if (s != 0 && t == 0) {
-                boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
+                if (s>10){
+                    boardGameStr[s][t] = "|"+ std::to_string(s-11)+"|";
+                    }
+                else{
+                    boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
+                    }
             }
             
             cout << boardGameStr[s][t];

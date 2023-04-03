@@ -197,7 +197,29 @@ void Game::initPlayerLoop(string& command){
                     }
                 }
             }
+            if (startPosVec[0] == "generate"){
+                Helper::splitString(startPosVec[1], startPosVec, ",");
+                if (startPosVec.size() == 2){
+                    if (Helper::isNumber(startPosVec[0])){
+                        int x = stoi(startPosVec[0]);
+                        if (x <= 20 && x >= 10){
+                            string temp = startPosVec[1];
+                            Helper::splitString(startPosVec[1], startPosVec, ".");
+                            if(startPosVec.size() == 2){
+                                if (startPosVec[0] == "0" && Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
+                                    double y = stod(temp);
+                                    cout << "y was: " << y << endl;
+                                    //we create a parse in a create board.
+                                    board->resizeBoard(x,y);
+                                    //valid1 = false;
+                                    valid2 = true;
+                                }
+                            }
+                        }
 
+                    }
+                }
+            }
             if (startPosVec[0] == "init"){
 
                 Helper::splitString(startPosVec[1], startPosVec, ",");
@@ -239,7 +261,7 @@ void Game::initPlayerLoop(string& command){
         if (valid1 == true){
 
             if (valid2 == false){
-            cout << "\nInvalid command.";
+            cout << "\nInvalid command.\n";
             }
             cout << endl;
             if (valid2 == false){
