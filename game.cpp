@@ -20,6 +20,9 @@ Game::Game()
     cout << "init <x>,<y>,<diretion>\n    x:horizontal position of the car on the board (between 0 & 9)" << endl;
     cout << "    y:vertical position of the car on the board (between 0 & 9)" << endl;
     cout << "    direction: direction of the car's movement (north, east, south, west)" << endl;
+    cout << "generate <d>,<p>" << endl;
+    cout << "    d: the dimension of the game board to be generated" << endl;
+    cout << "    p: the probability of the blocks on board to be generated randomly" << endl;
     cout << "forward (or f)" << endl;
     cout << "turn_left (or l)" << endl;
     cout << "turn_right (or r)" << endl;
@@ -43,7 +46,7 @@ void Game::start()
     cout << "enter forward, turn_left, turn_right, r, l, or quit: ";
     getline(cin, gamer);
     while (gamer != "quit"){
-        if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right " || gamer == "r" || gamer == "l"){
+        if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right " || gamer == "r" || gamer == "l" || gamer == "f"){
             if (gamer == "turn_left" || gamer == "l"){
                 //cout << "should turn left" << endl;
                 (*player).turnDirection(TURN_LEFT);
@@ -154,11 +157,13 @@ void Game::loadBoardLoop(string& command){
 }
 
 void Game::initPlayerLoop(string& command){
-    
+    bool firstLoad = false;
     cout << "Select either:" << endl;
     cout << "1. Load <g>" << endl;
-    cout << "2. Init <x>,<y>,<direction>" << endl;
-    cout << "3. Generate " << endl;
+    if (firstLoad){
+        cout << "2. Init <x>,<y>,<direction>" << endl;
+        cout << "3. Generate <d>,<p> " << endl;
+    }
     cout << "3. Quit" << endl;
     cout << "Enter your choice: ";
     string startPos;
@@ -193,65 +198,68 @@ void Game::initPlayerLoop(string& command){
                         //cout << "got here" <<endl;
                         loadBoardNumber(stoi(startPosVec[1]));
                         valid2 = true;
+                        firstLoad = true;
                         //cout <<"got here" <<endl;
                         //valid1 = false;
                     }
                 }
             }
-            if (startPosVec[0] == "generate"){
-                Helper::splitString(startPosVec[1], startPosVec, ",");
-                if (startPosVec.size() == 2){
-                    if (Helper::isNumber(startPosVec[0])){
-                        int x = stoi(startPosVec[0]);
-                        if (x <= 20 && x >= 10){
-                            string temp = startPosVec[1];
-                            Helper::splitString(startPosVec[1], startPosVec, ".");
-                            if(startPosVec.size() == 2){
-                                if (startPosVec[0] == "0" && Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
-                                    double y = stod(temp);
-                                    cout << "y was: " << y << endl;
-                                    //we create a parse in a create board.
-                                    board->resizeBoard(x,y);
-                                    //valid1 = false;
-                                    valid2 = true;
+            if (firstLoad){
+                if (startPosVec[0] == "generate"){
+                    Helper::splitString(startPosVec[1], startPosVec, ",");
+                    if (startPosVec.size() == 2){
+                        if (Helper::isNumber(startPosVec[0])){
+                            int x = stoi(startPosVec[0]);
+                            if (x <= 20 && x >= 10){
+                                string temp = startPosVec[1];
+                                Helper::splitString(startPosVec[1], startPosVec, ".");
+                                if(startPosVec.size() == 2){
+                                    if (startPosVec[0] == "0" && Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
+                                        double y = stod(temp);
+                                        cout << "y was: " << y << endl;
+                                        //we create a parse in a create board.
+                                        board->resizeBoard(x,y);
+                                        //valid1 = false;
+                                        valid2 = true;
+                                    }
                                 }
                             }
-                        }
 
+                        }
                     }
                 }
-            }
-            if (startPosVec[0] == "init"){
+                if (startPosVec[0] == "init"){
 
-                Helper::splitString(startPosVec[1], startPosVec, ",");
-                if (startPosVec.size() == 3){
-                    if (Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
-                        if (startPosVec[2] == "N" || startPosVec[2] == "E" || startPosVec[2] == "S" || startPosVec[2] == "W"){
+                    Helper::splitString(startPosVec[1], startPosVec, ",");
+                    if (startPosVec.size() == 3){
+                        if (Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
+                            if (startPosVec[2] == "N" || startPosVec[2] == "E" || startPosVec[2] == "S" || startPosVec[2] == "W"){
 
-                            int x = stoi(startPosVec[0]);
-                            int y = stoi(startPosVec[1]);
-                            string direction = startPosVec[2];
-                            ///*
-                            if (board->placePlayer(Position(x,y)) == true){
-                                
-                                if (direction == "N"){
-                                    // check if valid position for board due to out of bounds
-                                    intPlayer(x,y,0);
+                                int x = stoi(startPosVec[0]);
+                                int y = stoi(startPosVec[1]);
+                                string direction = startPosVec[2];
+                                ///*
+                                if (board->placePlayer(Position(x,y)) == true){
                                     
+                                    if (direction == "N"){
+                                        // check if valid position for board due to out of bounds
+                                        intPlayer(x,y,0);
+                                        
+                                    }
+                                    if (direction == "E"){
+                                        intPlayer(x,y,1);
+                                    }
+                                    if (direction == "S"){
+                                        intPlayer(x,y,2);
+                                    }
+                                    if (direction == "W"){
+                                        intPlayer(x,y,3);
+                                    }
+                                    valid1 = false;
+                                    valid2 = true;
                                 }
-                                if (direction == "E"){
-                                    intPlayer(x,y,1);
-                                }
-                                if (direction == "S"){
-                                    intPlayer(x,y,2);
-                                }
-                                if (direction == "W"){
-                                    intPlayer(x,y,3);
-                                }
-                                valid1 = false;
-                                valid2 = true;
+                                
                             }
-                            
                         }
                     }
                 }
@@ -270,8 +278,12 @@ void Game::initPlayerLoop(string& command){
             }
             cout << "Select either:" << endl;
             cout << "1. Load <g>" << endl;
-            cout << "2. Init <x>,<y>,<direction>" << endl;
-            cout << "3. Generate " << endl;
+
+            if (firstLoad){
+                cout << "2. Init <x>,<y>,<direction>" << endl;
+                cout << "3. Generate " << endl;
+            }
+
             cout << "3. Quit" << endl;
             cout << "Enter your choice: ";
             getline(cin, command);

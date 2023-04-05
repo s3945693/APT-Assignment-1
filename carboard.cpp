@@ -49,18 +49,18 @@ int main()
             while (command != "quit"){
                 
                 Game game;
-                game.loadBoardLoop(command);
+                
      
-                if (command != "quit"){
-                    game.initPlayerLoop(command);
-                }
+                
+                game.initPlayerLoop(command);
+                
          
-                    if (command != "quit"){
-                        game.start();
-                    }
-                    cout << "Player moves: " << game.getPlayerMoves() << endl;
-                    //cout << "end of init" << endl;
-                    command = "quit";
+                if (command != "quit"){
+                    game.start();
+                }
+                cout << "Player moves: " << game.getPlayerMoves() << endl;
+                //cout << "end of init" << endl;
+                command = "quit";
             }
 
         }
