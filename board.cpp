@@ -88,7 +88,7 @@ void Board::resizeBoard(int row, double prob) {
     for(int n=randomCells; n>0; n--){
         int i = distr(gen);
         int j = distr(gen);
-        cout << "i: " << i << " j: " << j << endl;
+        //cout << "i: " << i << " j: " << j << endl;
         if (i == 0 && j == 0){
             (*board)[i][j] = BLOCKED;
             n+=1;
@@ -107,34 +107,7 @@ void Board::resizeBoard(int row, double prob) {
     }
         
 
-    string boardGameStr[*boardDimension][*boardDimension] = { " " };
-    for (int s=0; s<*boardDimension; s++) {
-        for (int t=0; t<*boardDimension; t++) {
-            if (s == 0 && t == 0){
-                boardGameStr[s][t] = "| |";
-            }
-            else if (s == 0) {
-                if (t>10){
-                    boardGameStr[s][t] = std::to_string(t-11)+"|";
-                }
-                else{
-                boardGameStr[s][t] = std::to_string(t-1)+"|";
-                }
-            }
-            else if (s != 0 && t == 0) {
-                if (s>10){
-                    boardGameStr[s][t] = "|"+ std::to_string(s-11)+"|";
-                    }
-                else{
-                    boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
-                    }
-                
-            }
-            
-            cout << boardGameStr[s][t];
-        }
-        cout << endl;
-    }
+   pBoardNoPlayer();
 
 
 }

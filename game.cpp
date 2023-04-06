@@ -216,7 +216,7 @@ void Game::initPlayerLoop(string& command){
                                 if(startPosVec.size() == 2){
                                     if (startPosVec[0] == "0" && Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
                                         double y = stod(temp);
-                                        cout << "y was: " << y << endl;
+                                        //cout << "y was: " << y << endl;
                                         //we create a parse in a create board.
                                         board->resizeBoard(x,y);
                                         //valid1 = false;
@@ -281,7 +281,7 @@ void Game::initPlayerLoop(string& command){
 
             if (firstLoad){
                 cout << "2. Init <x>,<y>,<direction>" << endl;
-                cout << "3. Generate " << endl;
+                cout << "3. Generate <d>,<p>" << endl;
             }
 
             cout << "3. Quit" << endl;
