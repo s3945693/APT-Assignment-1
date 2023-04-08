@@ -116,45 +116,7 @@ int Game::intPlayer(int x, int y, int z)
     return 0;
 }
 
-void Game::loadBoardLoop(string& command){
-    cout << "Select to load<g> or quit the game: ";
-    getline(cin, command);
-    //cout <<"made it here" << endl;
-    cout << endl;
 
-    vector<string> loadVector;
-    
-    Helper::splitString(command, loadVector, " ");
-    bool valid = true;
-    while (valid){
-        if (loadVector.size() == 1){
-            if (loadVector[0] == "quit"){
-                valid = false;
-                command = "quit";
-            }
-        }
-        
-        else if (loadVector.size() == 2){
-            if (loadVector[0] == "load"){
-                if (Helper::isNumber(loadVector[1])){
-                    if (stoi(loadVector[1]) == 1 || stoi(loadVector[1]) == 2){
-                        valid = false;
-                        loadBoardNumber(stoi(loadVector[1]));
-                        cout << endl;
-                    }
-                }
-            }
-        }
-        if (valid == true){
-
-            Game::displayVoidBoard();
-            cout << "\nInvalid command. Select to load<g> or quit the game: ";
-            getline(cin, command);
-            cout << endl;
-            Helper::splitString(command, loadVector, " ");
-        }
-    }
-}
 
 void Game::initPlayerLoop(string& command){
     bool firstLoad = false;
@@ -233,7 +195,7 @@ void Game::initPlayerLoop(string& command){
                     Helper::splitString(startPosVec[1], startPosVec, ",");
                     if (startPosVec.size() == 3){
                         if (Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
-                            if (startPosVec[2] == "N" || startPosVec[2] == "E" || startPosVec[2] == "S" || startPosVec[2] == "W"){
+                            if (startPosVec[2] == "north" || startPosVec[2] == "east" || startPosVec[2] == "south" || startPosVec[2] == "west"){
 
                                 int x = stoi(startPosVec[0]);
                                 int y = stoi(startPosVec[1]);
@@ -270,21 +232,21 @@ void Game::initPlayerLoop(string& command){
         if (valid1 == true){
 
             if (valid2 == false){
-            cout << "\nInvalid command.\n";
+            cout << "Invalid command.\n";
             }
             cout << endl;
             if (valid2 == false){
             displayNoPlayer();
             }
             cout << "Select either:" << endl;
-            cout << "1. Load <g>" << endl;
+            cout << " Load <g>" << endl;
 
             if (firstLoad){
-                cout << "2. Init <x>,<y>,<direction>" << endl;
-                cout << "3. Generate <d>,<p>" << endl;
+                cout << " Init <x>,<y>,<direction>" << endl;
+                cout << " Generate <d>,<p>" << endl;
             }
 
-            cout << "3. Quit" << endl;
+            cout << " Quit" << endl;
             cout << "Enter your choice: ";
             getline(cin, command);
             cout << endl;

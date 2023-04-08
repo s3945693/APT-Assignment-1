@@ -83,27 +83,18 @@ void Board::resizeBoard(int row, double prob) {
 
     std::random_device rd; // obtain a random number from hardware
     std::mt19937 gen(rd()); // seed the generator
-    std::uniform_int_distribution<> distr(0, row); // define the range
+    std::uniform_int_distribution<> distr(1, row); // define the range
     //cout << "got here " << endl;
     for(int n=randomCells; n>0; n--){
         int i = distr(gen);
         int j = distr(gen);
-        //cout << "i: " << i << " j: " << j << endl;
-        if (i == 0 && j == 0){
-            (*board)[i][j] = BLOCKED;
-            n+=1;
+        cout<< "N: " << n << endl;
+        cout << "i: " << i << " j: " << j << endl;
+        if ((*board)[i][j] == BLOCKED){
+            n++;
         }
-        else if (i == 0) {
-            (*board)[i][j] = BLOCKED;
-            n+=1;
-        }
-        else if (i!= 0 && j == 0) {
-            (*board)[i][j] = BLOCKED;
-            n+=1;
-        }
-        else {
-            (*board)[i][j] = BLOCKED;
-        }
+        (*board)[i][j] = BLOCKED;
+        
     }
         
 
@@ -195,20 +186,22 @@ void Board::load(int boardId)
 
 bool Board::placePlayer(Position position)
 {
+    bool toReturn;
     if (position.x >0 && position.x <*boardDimension && position.y >0 && position.y <*boardDimension) {
         if ((*board)[position.x][position.y] == BLOCKED) {
             cout << "cant place player here" << endl;
-            return false;
+            toReturn = false;
         }
         else {
             (*board)[position.x][position.y] = PLAYER;
-            return true;
+            toReturn = true;
         }
     }
     else {
         cout << "out of bounds area" << endl;
-        return false;
+        toReturn = false;
     }
+    return toReturn;
 
  // feel free to revise this line, depending on your implementation.
 }

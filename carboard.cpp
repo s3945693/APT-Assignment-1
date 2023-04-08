@@ -50,14 +50,12 @@ int main()
                 
                 Game game;
                 
-     
-                
                 game.initPlayerLoop(command);
-                
          
                 if (command != "quit"){
                     game.start();
                 }
+                
                 cout << "Player moves: " << game.getPlayerMoves() << endl;
                 //cout << "end of init" << endl;
                 command = "quit";
