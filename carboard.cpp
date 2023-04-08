@@ -55,7 +55,7 @@ int main()
                 if (command != "quit"){
                     game.start();
                 }
-                
+
                 cout << "Player moves: " << game.getPlayerMoves() << endl;
                 //cout << "end of init" << endl;
                 command = "quit";
@@ -75,6 +75,7 @@ void showStudentInformation(){
     cout << "Name: Brendon Rodrigues" << endl;
     cout << "No: s3945693" << endl;
     cout << "Email: s3945693@student.rmit.edu.au" << endl;
+    cout << "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" << endl;
 }
 
 int mainMenu(){
@@ -121,29 +122,6 @@ string mainMenuCheck(){
     return inp;
 }
 
-void intPlayer(string x, vector<string>& s){
-    // TODO
-    Helper::splitString(x,s,",");
-    //cout <<"b4 while loop x: "<< s[0] << ". y: " << s[1] << ". direction: " << s[2] << endl;
-
-    while(Helper::isNumber(s[0]) == false || Helper::isNumber(s[1]) == false){
-            
-            //cout << "x was: " << s[0] << ". y was: " << s[1] << " direction was: " << s[2] << endl;
-            //cout << "x was: " << Helper::isNumber(s[0]) << ". y was: " << Helper::isNumber(s[1]) << " direction was: " << s[2] << endl;
-            cout << "Invalid starting position. Please enter a valid starting position x or y: ";
-            cin >> x;
-            cout << endl;
-            Helper::splitString(x,s,",");
-    }
-
-    while (s[2] != "N" && s[2] != "E" && s[2] != "S" && s[2] != "W"){
-        cout << "the direction entered was false: " << s[2] << endl;
-        cout << "Invalid starting position. Please enter a valid starting position direction: ";
-        cin >> s[2];
-        cout << endl;
-    }
-
-}
 
 void exit(){
     // TODO
