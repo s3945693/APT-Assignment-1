@@ -26,8 +26,9 @@ Game::Game()
     cout << "forward (or f)" << endl;
     cout << "turn_left (or l)" << endl;
     cout << "turn_right (or r)" << endl;
-    cout << "quit" << endl;
+    cout << "quit\n" << endl;
     board->pBoard();
+    cout<< endl;
     
 }
 
@@ -43,7 +44,9 @@ void Game::start()
 {
     //TODO
     string gamer;
-    cout << "enter forward, turn_left, turn_right, r, l, or quit: ";
+    cout << "\nEnter a command: " << endl;
+    cout << " enter forward (or f)\n" <<" turn_left (or l)" << endl;
+    cout << " turn_right (or r)\n"<<" quit" << endl;
     getline(cin, gamer);
     while (gamer != "quit"){
         if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right " || gamer == "r" || gamer == "l" || gamer == "f"){
@@ -59,14 +62,22 @@ void Game::start()
                 //cout <<"go forword" << endl;
                 (*board).movePlayerForward(player);
             }
+            cout << endl;
             (*board).display(player);
             
-            cout << "enter next command: ";
+            cout << "\nEnter a command: " << endl;
+            cout << " enter forward (or f)\n" <<" turn_left (or l)" << endl;
+            cout << " turn_right (or r)\n"<<" quit" << endl;
             getline(cin, gamer);
             
         }
         else{
-            cout << "Invalid command. Please enter a valid command: ";
+            cout << "\nInvalid command.\n" << endl;
+            (*board).display(player);
+            
+            cout << "\nEnter a command: ";
+            cout << " enter forward of (f)\n" <<" turn_left (or l)" << endl;
+            cout << " turn_right (or r)\n"<<" quit" << endl;
             getline(cin, gamer);
         }
     }
@@ -242,9 +253,9 @@ void Game::initPlayerLoop(string& command){
         if (valid1 == true){
 
             if (valid2 == false){
-            cout << "Invalid command.\n";
+            cout << "Invalid command.\n" << endl;
             }
-            cout << endl;
+            
             if (valid2 == false){
             displayNoPlayer();
             }
