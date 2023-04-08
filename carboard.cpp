@@ -56,7 +56,8 @@ int main()
                     game.start();
                 }
 
-                cout << "Player moves: " << game.getPlayerMoves() << endl;
+                cout << "\nTotal player moves: " << game.getPlayerMoves() << endl;
+                
                 //cout << "end of init" << endl;
                 command = "quit";
             }
@@ -65,7 +66,7 @@ int main()
         choice = mainMenu();
     }
 
-    cout <<"Exiting..."<<endl;
+    cout <<"Goodbye!"<<endl;
     return EXIT_SUCCESS;
 }
 
