@@ -63,7 +63,7 @@ public:
 
     //displays an unloaded board
     void displayVoidBoard();
-    int intPlayer(int x,int y, int z);
+    int intPlayer(int x,int y, Direction z);
 
     //loops and checks for valid input for the load board function
     void loadBoardLoop(string& command);

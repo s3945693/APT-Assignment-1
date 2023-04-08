@@ -15,10 +15,10 @@ Game::Game()
     
     player = new Player();
     //cout << "this is this.board in game: " <<this->board << endl;
-    cout << "You can use the following commands to play the game:" << endl;
+    cout << "You can use the following commands to play the game:\n" << endl;
     cout << "load <g>\n    g - number of gameboard to load" << endl;
-    cout << "init <x>,<y>,<diretion>\n    x:horizontal position of the car on the board (between 0 & 9)" << endl;
-    cout << "    y:vertical position of the car on the board (between 0 & 9)" << endl;
+    cout << "init <x>,<y>,<diretion>\n    x: horizontal position of the car on the board (between 0 & 9)" << endl;
+    cout << "    y: vertical position of the car on the board (between 0 & 9)" << endl;
     cout << "    direction: direction of the car's movement (north, east, south, west)" << endl;
     cout << "generate <d>,<p>" << endl;
     cout << "    d: the dimension of the game board to be generated" << endl;
@@ -89,31 +89,38 @@ void Game::loadBoardNumber(int x)
      // feel free to revise this line, depending on your implementation.
 }
 
-int Game::intPlayer(int x, int y, int z)
+int Game::intPlayer(int x, int y, Direction z)
 {
     Position pos(x,y);
-
-    if(z == 0)
+    bool playerSet = false;
+    if(z == NORTH)
     {    
         (*player).initialisePlayer(&pos,NORTH);
+        playerSet = true;
     }
-    else if(z == 1)
+    else if(z == EAST)
     {
         (*player).initialisePlayer(&pos,EAST);
+        playerSet = true;
     }
-    else if(z == 2)
+    else if(z == SOUTH)
     {
         (*player).initialisePlayer(&pos,SOUTH);
+        playerSet = true;
     }
-    else if(z == 3)
+    else if(z == WEST)
     {
         (*player).initialisePlayer(&pos,WEST);
+        playerSet = true;
     }
 
-    (*board).placePlayer(pos);
-    //cout << "testing b.display" << endl;
-    (*board).display(player);
-    return 0;
+    if (playerSet){
+        (*board).placePlayer(pos);
+        (*board).display(player);
+        
+    }
+    return playerSet;
+    
 }
 
 
@@ -121,12 +128,12 @@ int Game::intPlayer(int x, int y, int z)
 void Game::initPlayerLoop(string& command){
     bool firstLoad = false;
     cout << "Select either:" << endl;
-    cout << "1. Load <g>" << endl;
+    cout << " load <g>" << endl;
     if (firstLoad){
-        cout << "2. Init <x>,<y>,<direction>" << endl;
-        cout << "3. Generate <d>,<p> " << endl;
+        cout << " init <x>,<y>,<direction>" << endl;
+        cout << " generate <d>,<p> " << endl;
     }
-    cout << "3. Quit" << endl;
+    cout << " quit" << endl;
     cout << "Enter your choice: ";
     string startPos;
     getline(cin, command);
@@ -195,33 +202,36 @@ void Game::initPlayerLoop(string& command){
                     Helper::splitString(startPosVec[1], startPosVec, ",");
                     if (startPosVec.size() == 3){
                         if (Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
-                            if (startPosVec[2] == "north" || startPosVec[2] == "east" || startPosVec[2] == "south" || startPosVec[2] == "west"){
 
-                                int x = stoi(startPosVec[0]);
-                                int y = stoi(startPosVec[1]);
-                                string direction = startPosVec[2];
-                                ///*
-                                if (board->placePlayer(Position(x,y)) == true){
-                                    
-                                    if (direction == "N"){
-                                        // check if valid position for board due to out of bounds
-                                        intPlayer(x,y,0);
-                                        
-                                    }
-                                    if (direction == "E"){
-                                        intPlayer(x,y,1);
-                                    }
-                                    if (direction == "S"){
-                                        intPlayer(x,y,2);
-                                    }
-                                    if (direction == "W"){
-                                        intPlayer(x,y,3);
-                                    }
+                            int x = stoi(startPosVec[0]);
+                            int y = stoi(startPosVec[1]);
+                            string direction = startPosVec[2];
+                            ///*
+                            if (board->placePlayer(Position(x,y)) == true){
+                                bool playerSet = false;
+                                if (direction == "north"){
+                                    // check if valid position for board due to out of bounds
+                                    intPlayer(x,y,NORTH);
+                                    playerSet = true;
+                                }
+                                if (direction == "eest"){
+                                    intPlayer(x,y,EAST);
+                                    playerSet = true;
+                                }
+                                if (direction == "south"){
+                                    intPlayer(x,y,SOUTH);
+                                    playerSet = true;
+                                }
+                                if (direction == "west"){
+                                    intPlayer(x,y,WEST);
+                                    playerSet = true;
+                                }
+                                if (playerSet){
                                     valid1 = false;
                                     valid2 = true;
                                 }
-                                
                             }
+                                
                         }
                     }
                 }
@@ -239,14 +249,14 @@ void Game::initPlayerLoop(string& command){
             displayNoPlayer();
             }
             cout << "Select either:" << endl;
-            cout << " Load <g>" << endl;
+            cout << " load <g>" << endl;
 
             if (firstLoad){
-                cout << " Init <x>,<y>,<direction>" << endl;
-                cout << " Generate <d>,<p>" << endl;
+                cout << " init <x>,<y>,<direction>" << endl;
+                cout << " generate <d>,<p>" << endl;
             }
 
-            cout << " Quit" << endl;
+            cout << " quit" << endl;
             cout << "Enter your choice: ";
             getline(cin, command);
             cout << endl;

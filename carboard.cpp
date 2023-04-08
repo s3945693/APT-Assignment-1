@@ -10,12 +10,12 @@ using std::cin;
 using std::exit;
 using std::vector;
 using std::getline;
-//add eof error, init 9,9 just doiestn work, implement f for forward
+//add eof error
 
 void showStudentInformation();
 int mainMenu();
 void exit();
-void printBlock();
+
 void intPlayer(string t, vector<string>& s);
 
 string mainMenuCheck();
@@ -83,18 +83,18 @@ int mainMenu(){
     cout << "Welcome to Car Board" << endl;
     cout << "_ _ _ _ _ _ _ _ _ _ _" << endl;
     cout << "1. Play game" << endl;
-    cout << "2. Show student's information" << endl;
+    cout << "2. Show student information" << endl;
     cout << "3. Exit" << endl;
     cout << "_ _ _ _ _ _ _ _ _ _ _\n" << endl;
     cout << "Please enter your choice: ";
     int choice = stoi(mainMenuCheck());
     while (choice >3 || choice <1){
-        cout << "\nInvalid choice. Please try again. \n";
+        cout << "\nInvalid input.\n";
         cout<<endl;
         cout << "Welcome to Car Board" << endl;
         cout << "_ _ _ _ _ _ _ _ _ _ _" << endl;
         cout << "1. Play game" << endl;
-        cout << "2. Show student's information" << endl;
+        cout << "2. Show student information" << endl;
         cout << "3. Exit" << endl;
         cout << "_ _ _ _ _ _ _ _ _ _ _\n" << endl;
         cout << "Please enter your choice: ";
@@ -107,12 +107,12 @@ string mainMenuCheck(){
     string inp;
     getline(cin, inp);
     while (inp.length() != 1 || isdigit(inp[0]) == false) {
-        cout << "\nInvalid choice. Please try again: \n";
+        cout << "\nInvalid input.\n";
         cout<<endl;
         cout << "Welcome to Car Board" << endl;
         cout << "_ _ _ _ _ _ _ _ _ _ _" << endl;
         cout << "1. Play game" << endl;
-        cout << "2. Show student's information" << endl;
+        cout << "2. Show student information" << endl;
         cout << "3. Exit" << endl;
         cout << "_ _ _ _ _ _ _ _ _ _ _\n" << endl;
         cout << "Please enter your choice: ";
@@ -128,16 +128,4 @@ void exit(){
     exit(0);
 }
 
-void printBlock(){
-    cout << "You can use the commands to play the game" << endl;
-    cout << "load <g>" << endl;
-    cout << " g: number of teh game board ro load" << endl;
-    cout << "init <x>,<y> <direction>" << endl;
-    cout << " x: horizontal position of the car btwn 0-9" << endl;
-    cout << " y: vertical position of the car btwn 0-9" << endl;
-    cout << " direction: direction of the car (N, S, E, W)" << endl;
-    cout << "forward (or f)" << endl;
-    cout << "turn left (or l)" << endl;
-    cout << "turn right (or r)" << endl;
-    cout << "quit (or q)" << endl;
-}
+
