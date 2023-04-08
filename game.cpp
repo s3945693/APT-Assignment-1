@@ -148,6 +148,11 @@ void Game::initPlayerLoop(string& command){
     cout << "Enter your choice: ";
     string startPos;
     getline(cin, command);
+    if (std::cin.eof()==1) {
+        std::cin.clear();
+        std::cin.ignore();
+        exit(0);
+    }
     cout << endl;
     vector<string> startPosVec;                    
     ///*
@@ -270,6 +275,11 @@ void Game::initPlayerLoop(string& command){
             cout << " quit" << endl;
             cout << "Enter your choice: ";
             getline(cin, command);
+            if (std::cin.eof()==1) {
+                std::cin.clear();
+                std::cin.ignore();
+                exit(0);
+            }
             cout << endl;
             Helper::splitString(command, startPosVec, " ");
             valid2 = false;

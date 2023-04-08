@@ -89,24 +89,18 @@ int mainMenu(){
     cout << "_ _ _ _ _ _ _ _ _ _ _\n" << endl;
     cout << "Please enter your choice: ";
     int choice = stoi(mainMenuCheck());
-    while (choice >3 || choice <1){
-        cout << "\nInvalid input.\n";
-        cout<<endl;
-        cout << "Welcome to Car Board" << endl;
-        cout << "_ _ _ _ _ _ _ _ _ _ _" << endl;
-        cout << "1. Play game" << endl;
-        cout << "2. Show student information" << endl;
-        cout << "3. Exit" << endl;
-        cout << "_ _ _ _ _ _ _ _ _ _ _\n" << endl;
-        cout << "Please enter your choice: ";
-        choice = stoi(mainMenuCheck());
-    }
+    
     return choice;
 }
 
 string mainMenuCheck(){
     string inp;
     getline(cin, inp);
+    if (std::cin.eof()==1) {
+        std::cin.clear();
+        std::cin.ignore();
+        exit(0);
+    }
     while (inp.length() != 1 || isdigit(inp[0]) == false) {
         cout << "\nInvalid input.\n";
         cout<<endl;
@@ -118,6 +112,11 @@ string mainMenuCheck(){
         cout << "_ _ _ _ _ _ _ _ _ _ _\n" << endl;
         cout << "Please enter your choice: ";
         getline(cin, inp);
+        if (std::cin.eof()==1) {
+            std::cin.clear();
+            std::cin.ignore();
+            exit(0);
+        }
     }
     //cout << "returning value" << endl;
     return inp;
