@@ -258,12 +258,12 @@ void Game::initPlayerLoop(string& command){
         if (valid1 == true){
 
             if (valid2 == false){
-            cout << "Invalid command.\n" << endl;
+                cout << "Invalid command.\n" << endl;
+                displayNoPlayer();
+                
             }
             
-            if (valid2 == false){
-            displayNoPlayer();
-            }
+            cout << endl;
             cout << "Select either:" << endl;
             cout << " load <g>" << endl;
 

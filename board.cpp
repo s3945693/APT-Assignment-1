@@ -88,8 +88,8 @@ void Board::resizeBoard(int row, double prob) {
     for(int n=randomCells; n>0; n--){
         int i = distr(gen);
         int j = distr(gen);
-        cout<< "N: " << n << endl;
-        cout << "i: " << i << " j: " << j << endl;
+        //cout<< "N: " << n << endl;
+        //cout << "i: " << i << " j: " << j << endl;
         if ((*board)[i][j] == BLOCKED){
             n++;
         }
@@ -189,7 +189,7 @@ bool Board::placePlayer(Position position)
     bool toReturn;
     if (position.x >0 && position.x <*boardDimension && position.y >0 && position.y <*boardDimension) {
         if ((*board)[position.x][position.y] == BLOCKED) {
-            cout << "cant place player here" << endl;
+            cout << "Can't place player here." << endl;
             toReturn = false;
         }
         else {
@@ -198,7 +198,7 @@ bool Board::placePlayer(Position position)
         }
     }
     else {
-        cout << "out of bounds area" << endl;
+        cout << "Out of bounds area." << endl;
         toReturn = false;
     }
     return toReturn;
@@ -215,11 +215,11 @@ PlayerMove Board::movePlayerForward(Player* player)
     
     if (player->direction == EAST){
         if (player->position.y+1 >*boardDimension-1){
-            cout << "out of bounds area" << endl;
+            cout << "\nOut of bounds area" << endl;
         }
 
         else if ((*board)[player->position.x][player->position.y+1] == BLOCKED) {
-            cout << "player hit wall" << endl;
+            cout << "\nPlayer hit a wall" << endl;
         }
 
         else {
@@ -231,10 +231,10 @@ PlayerMove Board::movePlayerForward(Player* player)
     }
     else if (player->direction == WEST){
         if (player->position.y-1 <1){
-            cout << "out of bounds area" << endl;
+            cout << "\nOut of bounds area" << endl;
         }
         else if ((*board)[player->position.x][player->position.y-1] == BLOCKED) {
-            cout << "player hit wall" << endl;
+            cout << "\nPlayer hit wall" << endl;
         }
         else {
             (*board)[player->position.x][player->position.y-1] = PLAYER;
@@ -246,10 +246,10 @@ PlayerMove Board::movePlayerForward(Player* player)
     else if (player->direction == SOUTH){
         //cout <<"this is executing: " << player->position.x+1 << endl;
         if (player->position.x+1 >*boardDimension-1){
-            cout << "out of bounds area" << endl;
+            cout << "\nOut of bounds area" << endl;
         }
         else if ((*board)[player->position.x+1][player->position.y] == BLOCKED) {
-            cout << "player hit wall" << endl;
+            cout << "\nPlayer hit wall" << endl;
         }
 
         else {
@@ -262,10 +262,10 @@ PlayerMove Board::movePlayerForward(Player* player)
     }
     else if (player->direction == NORTH){
         if (player->position.x-1 <1){
-            cout << "out of bounds area" << endl;
+            cout << "\nOut of bounds area" << endl;
         }
         else if ((*board)[player->position.x-1][player->position.y] == BLOCKED) {
-            cout << "player hit wall" << endl;
+            cout << "\nPlayer hit wall" << endl;
         }
         else {
             (*board)[player->position.x-1][player->position.y] = PLAYER;
