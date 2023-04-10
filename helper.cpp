@@ -59,3 +59,13 @@ string Helper::readInput()
 
     return input;
 }
+
+string Helper::readInput(string& msg){
+    std::getline(std::cin, msg);
+    if (std::cin.eof()==1) {
+            std::cin.clear();
+            std::cin.ignore();
+            exit(0);
+        }
+    return msg;
+}

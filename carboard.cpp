@@ -95,12 +95,8 @@ int mainMenu(){
 
 string mainMenuCheck(){
     string inp;
-    getline(cin, inp);
-    if (std::cin.eof()==1) {
-        std::cin.clear();
-        std::cin.ignore();
-        exit(0);
-    }
+    Helper::readInput(inp);
+    
     while (inp.length() != 1 || isdigit(inp[0]) == false) {
         cout << "\nInvalid input.\n";
         cout<<endl;
@@ -111,12 +107,7 @@ string mainMenuCheck(){
         cout << "3. Exit" << endl;
         cout << "_ _ _ _ _ _ _ _ _ _ _\n" << endl;
         cout << "Please enter your choice: ";
-        getline(cin, inp);
-        if (std::cin.eof()==1) {
-            std::cin.clear();
-            std::cin.ignore();
-            exit(0);
-        }
+        Helper::readInput(inp);
     }
     //cout << "returning value" << endl;
     return inp;

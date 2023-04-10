@@ -44,6 +44,7 @@ public:
     static std::string readInput();
 
     static void printInvalidInput();
+    static std::string readInput(std::string &msg);
 
 };
 #endif

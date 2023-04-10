@@ -47,7 +47,7 @@ void Game::start()
     cout << "\nEnter a command: " << endl;
     cout << " enter forward (or f)\n" <<" turn_left (or l)" << endl;
     cout << " turn_right (or r)\n"<<" quit" << endl;
-    getline(cin, gamer);
+    Helper::readInput(gamer);
     while (gamer != "quit"){
         if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right " || gamer == "r" || gamer == "l" || gamer == "f"){
             if (gamer == "turn_left" || gamer == "l"){
@@ -68,7 +68,7 @@ void Game::start()
             cout << "\nEnter a command: " << endl;
             cout << " enter forward (or f)\n" <<" turn_left (or l)" << endl;
             cout << " turn_right (or r)\n"<<" quit" << endl;
-            getline(cin, gamer);
+            Helper::readInput(gamer);
             
         }
         else{
@@ -78,7 +78,7 @@ void Game::start()
             cout << "\nEnter a command: ";
             cout << " enter forward of (f)\n" <<" turn_left (or l)" << endl;
             cout << " turn_right (or r)\n"<<" quit" << endl;
-            getline(cin, gamer);
+            Helper::readInput(gamer);
         }
     }
 }
@@ -147,12 +147,7 @@ void Game::initPlayerLoop(string& command){
     cout << " quit" << endl;
     cout << "Enter your choice: ";
     string startPos;
-    getline(cin, command);
-    if (std::cin.eof()==1) {
-        std::cin.clear();
-        std::cin.ignore();
-        exit(0);
-    }
+    Helper::readInput(command);
     cout << endl;
     vector<string> startPosVec;                    
     ///*
@@ -274,12 +269,7 @@ void Game::initPlayerLoop(string& command){
 
             cout << " quit" << endl;
             cout << "Enter your choice: ";
-            getline(cin, command);
-            if (std::cin.eof()==1) {
-                std::cin.clear();
-                std::cin.ignore();
-                exit(0);
-            }
+            Helper::readInput(command);
             cout << endl;
             Helper::splitString(command, startPosVec, " ");
             valid2 = false;
