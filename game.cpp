@@ -48,7 +48,7 @@ void Game::start()
 
     while (gamer != "quit"){
         //ensuring valid input
-        if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right" || gamer == "r" || gamer == "l" || gamer == "f"){
+        if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right " || gamer == "r" || gamer == "l" || gamer == "f"){
             if (gamer == "turn_left" || gamer == "l"){
                 //cout << "should turn left" << endl;
                 (*player).turnDirection(TURN_LEFT);
