@@ -17,8 +17,8 @@ Game::Game()
     //cout << "this is this.board in game: " <<this->board << endl;
     cout << "You can use the following commands to play the game:\n" << endl;
     cout << "load <g>\n    g - number of gameboard to load" << endl;
-    cout << "init <x>,<y>,<diretion>\n    x: horizontal position of the car on the board (between 0 & 9)" << endl;
-    cout << "    y: vertical position of the car on the board (between 0 & 9)" << endl;
+    cout << "init <x>,<y>,<diretion>\n    x: horizontal position of the car on the board" << endl;
+    cout << "    y: vertical position of the car on the board" << endl;
     cout << "    direction: direction of the car's movement (north, east, south, west)" << endl;
     cout << "generate <d>,<p>" << endl;
     cout << "    d: the dimension of the game board to be generated" << endl;
