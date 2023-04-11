@@ -58,11 +58,6 @@ public:
     //calls upon board.load to load the associated board
     void loadBoardNumber(int x);
 
-    //displays a board with no player
-    void displayNoPlayer();
-
-    //displays an unloaded board
-    void displayVoidBoard();
     int intPlayer(int x,int y, Direction z);
 
     //loops and checks for valid input for the load board function

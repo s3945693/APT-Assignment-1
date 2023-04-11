@@ -218,28 +218,32 @@ void Game::initPlayerLoop(string& command){
                             int y = stoi(startPosVec[1]);
                             string direction = startPosVec[2];
                             ///*
-                            if (board->placePlayer(Position(x,y)) == true){
-                                bool playerSet = false;
-                                if (direction == "north"){
-                                    // check if valid position for board due to out of bounds
-                                    intPlayer(x,y,NORTH);
-                                    playerSet = true;
-                                }
-                                if (direction == "eest"){
-                                    intPlayer(x,y,EAST);
-                                    playerSet = true;
-                                }
-                                if (direction == "south"){
-                                    intPlayer(x,y,SOUTH);
-                                    playerSet = true;
-                                }
-                                if (direction == "west"){
-                                    intPlayer(x,y,WEST);
-                                    playerSet = true;
-                                }
-                                if (playerSet){
-                                    valid1 = false;
-                                    valid2 = true;
+                            if (direction == "north" || direction == "east" || direction == "south" || direction == "west"){
+                                if (board->placePlayer(Position(x,y)) == true){
+                                    bool playerSet = false;
+                                    
+                                    if (direction == "north"){
+                                        // check if valid position for board due to out of bounds
+                                        intPlayer(x,y,NORTH);
+                                        playerSet = true;
+                                    }
+                                    if (direction == "east"){
+                                        intPlayer(x,y,EAST);
+                                        playerSet = true;
+                                        
+                                    }
+                                    if (direction == "south"){
+                                        intPlayer(x,y,SOUTH);
+                                        playerSet = true;
+                                    }
+                                    if (direction == "west"){
+                                        intPlayer(x,y,WEST);
+                                        playerSet = true;
+                                    }
+                                    if (playerSet){
+                                        valid1 = false;
+                                        valid2 = true;
+                                    }
                                 }
                             }
                                 
@@ -254,8 +258,7 @@ void Game::initPlayerLoop(string& command){
 
             if (valid2 == false){
                 cout << "Invalid command.\n" << endl;
-                displayNoPlayer();
-                
+                this->board->pBoard();
             }
             
             cout << endl;
@@ -291,16 +294,4 @@ void Game::play()
 {
     //TODO
 
-}
-
-void Game::displayNoPlayer()
-{
-    //TODO
-    this->board->pBoardNoPlayer();
-}
-
-void Game::displayVoidBoard()
-{
-    //TODO
-    this->board->pBoard();
 }

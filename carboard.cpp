@@ -56,7 +56,7 @@ int main()
                     game.start();
                 }
 
-                cout << "\nTotal player moves: " << game.getPlayerMoves() << endl;
+                cout << "Total player moves: " << game.getPlayerMoves() << endl;
                 
                 //cout << "end of init" << endl;
                 command = "quit";

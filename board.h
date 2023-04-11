@@ -50,10 +50,10 @@ public:
     void load(int boardId);
 
     //print a fake untouched board
-    void pBoard();
+    
 
     //print a board without player
-    void pBoardNoPlayer();
+    void pBoard();
 
     /**
      * Try to place the PLAYER cell at the provided position.
@@ -106,7 +106,9 @@ public:
     */
     void display(Player* player);
 
-    //generate a resizeable board
+    /* generate a resizeable board based on the input x and allocated the roadblocks 
+     * based on the input y a a percentage value.
+    */
     void resizeBoard(int x, double y);
 };
 

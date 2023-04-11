@@ -73,44 +73,55 @@ Board::~Board()
 }
 
 void Board::resizeBoard(int row, double prob) {
+
+    //deleteing previous board and boardDimension
     delete board;
     delete boardDimension;
 
+    //creating new board and boardDimension based on the value row
     boardDimension = new int(row+1);
     board = new vector<vector<Cell>>(*boardDimension, vector<Cell>(*boardDimension, EMPTY));
 
+    //math for how many roadblocks to assign
     int randomCells = (row*row)*prob;
 
     std::random_device rd; // obtain a random number from hardware
     std::mt19937 gen(rd()); // seed the generator
     std::uniform_int_distribution<> distr(1, row); // define the range
     //cout << "got here " << endl;
+
+    //assigning roadblocks randomly
     for(int n=randomCells; n>0; n--){
         int i = distr(gen);
         int j = distr(gen);
         //cout<< "N: " << n << endl;
         //cout << "i: " << i << " j: " << j << endl;
+        
+        // if road was already blocked, repeat the loop value again
         if ((*board)[i][j] == BLOCKED){
             n++;
         }
+
         (*board)[i][j] = BLOCKED;
-        
     }
         
-
-   pBoardNoPlayer();
-
+    //printing a board with no player
+    pBoard();
 
 }
 
 void Board::load(int boardId)
 {
-    // TODO
+    // deleting previous board and boardDimension
     delete board;
+    delete boardDimension;
+
+    // creating new board and boardDimension 
+    boardDimension = new int(11);
     board = new vector<vector<Cell>>(*boardDimension, vector<Cell>(*boardDimension, EMPTY));
     string boardGameStr[*boardDimension][*boardDimension] = { " " };
     
-    //todo if baordId isNot valid, loop till valid
+    //ensuring the number rows/columns cant be accessed by car
     for (int i = 0; i<*boardDimension; i++){
         for (int j = 0; j<1; j++){
             (*board)[i][j] = BLOCKED;
@@ -122,12 +133,13 @@ void Board::load(int boardId)
         }
     }
 
+    //assigning roadblocks based on boardId
     for (int i =1; i<*boardDimension; i++) {
         for (int j = 1; j<*boardDimension; j++) {
             if (boardId == 1) {
                 if (BOARD_1[i-1][j-1] == BLOCKED) {
                     boardGameStr[i][j] = "*|";
-                    //next line creates a seg fault
+
                     (*board)[i][j] = BLOCKED;
                 }
                 else {
@@ -147,46 +159,22 @@ void Board::load(int boardId)
             }
             else {
                 cout << "Invalid board ID" << endl;
-                exit(1);
+                //exit(1);
             }
          
         }
 
     }
-
-    for (int s=0; s<*boardDimension; s++) {
-        for (int t=0; t<*boardDimension; t++) {
-            if (s == 0 && t == 0){
-                boardGameStr[s][t] = "| |";
-            }
-            else if (s == 0) {
-                if (t>10){
-                    boardGameStr[s][t] = std::to_string(t-11)+"|";
-                }
-                else{
-                boardGameStr[s][t] = std::to_string(t-1)+"|";
-                }
-            }
-            else if (s != 0 && t == 0) {
-                if (s>10){
-                    boardGameStr[s][t] = "|"+ std::to_string(s-11)+"|";
-                    }
-                else{
-                    boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
-                    }
-                
-            }
-            
-            cout << boardGameStr[s][t];
-        }
-        cout << endl;
-    }
+    //printing a board with no player
+    pBoard();
 
 }
 
 bool Board::placePlayer(Position position)
 {
+    
     bool toReturn;
+    //checking if given position is within dimensions of the board
     if (position.x >0 && position.x <*boardDimension && position.y >0 && position.y <*boardDimension) {
         if ((*board)[position.x][position.y] == BLOCKED) {
             cout << "Can't place player here." << endl;
@@ -197,29 +185,28 @@ bool Board::placePlayer(Position position)
             toReturn = true;
         }
     }
+    //if position is out of bounds
     else {
         cout << "Out of bounds area." << endl;
         toReturn = false;
     }
     return toReturn;
-
- // feel free to revise this line, depending on your implementation.
 }
 
 PlayerMove Board::movePlayerForward(Player* player)
 {
-    // TODO
-    //cout << "in move player forward class::board" << endl;
-    //cout << "player direction: " << (*player).direction << endl;
-    //cout << "player position x: " << (*player).position.x << " position y: " << (*player).position.y << endl;
-    
+    /*
+     * checking if the player is at the edge of the board or if the road is blocked
+     * if not the player is moved forward
+     * applies to all directions
+    */
     if (player->direction == EAST){
         if (player->position.y+1 >*boardDimension-1){
-            cout << "\nOut of bounds area" << endl;
+            cout << "\nThe car is at the edge of the board and cannot move further in that direction" << endl;
         }
 
         else if ((*board)[player->position.x][player->position.y+1] == BLOCKED) {
-            cout << "\nPlayer hit a wall" << endl;
+            cout << "\nCannot move forward as road is blocked" << endl;
         }
 
         else {
@@ -231,10 +218,10 @@ PlayerMove Board::movePlayerForward(Player* player)
     }
     else if (player->direction == WEST){
         if (player->position.y-1 <1){
-            cout << "\nOut of bounds area" << endl;
+            cout << "\nThe car is at the edge of the board and cannot move further in that direction" << endl;
         }
         else if ((*board)[player->position.x][player->position.y-1] == BLOCKED) {
-            cout << "\nPlayer hit wall" << endl;
+            cout << "\nCannot move forward as road is blocked" << endl;
         }
         else {
             (*board)[player->position.x][player->position.y-1] = PLAYER;
@@ -246,10 +233,10 @@ PlayerMove Board::movePlayerForward(Player* player)
     else if (player->direction == SOUTH){
         //cout <<"this is executing: " << player->position.x+1 << endl;
         if (player->position.x+1 >*boardDimension-1){
-            cout << "\nOut of bounds area" << endl;
+            cout << "\nThe car is at the edge of the board and cannot move further in that direction" << endl;
         }
         else if ((*board)[player->position.x+1][player->position.y] == BLOCKED) {
-            cout << "\nPlayer hit wall" << endl;
+            cout << "\nCannot move forward as road is blocked" << endl;
         }
 
         else {
@@ -262,10 +249,10 @@ PlayerMove Board::movePlayerForward(Player* player)
     }
     else if (player->direction == NORTH){
         if (player->position.x-1 <1){
-            cout << "\nOut of bounds area" << endl;
+            cout << "\nThe car is at the edge of the board and cannot move further in that direction" << endl;
         }
         else if ((*board)[player->position.x-1][player->position.y] == BLOCKED) {
-            cout << "\nPlayer hit wall" << endl;
+            cout << "\nCannot move forward as road is blocked" << endl;
         }
         else {
             (*board)[player->position.x-1][player->position.y] = PLAYER;
@@ -275,10 +262,6 @@ PlayerMove Board::movePlayerForward(Player* player)
         }
     }
 
-
-    //cout << "in end of move player forward class::board" << endl;
-    //cout << "player direction: " << (*player).direction << endl;
-    //cout << "player position x: " << (*player).position.x << " position y: " << (*player).position.y << endl;
     return PLAYER_MOVED;
 }
 
@@ -286,15 +269,7 @@ void Board::display(Player* player)
 {
     // TODO
     string boardGameStr[*boardDimension][*boardDimension] = { " " };
-    //todo if baordId isNot valid, loop till valid
    
-    //cout << "created test in board.cpp" << endl;
-    //cout << "assignt *board to test" << endl;
-    //Player t1;
-    
-    //t1 = *player;
-    //test[t1.position.x][t1.position.y] = PLAYER;
-    //cout<< "printing board address in baord::class" << board << endl;
     for (int i =1; i<*boardDimension; i++) {
         for (int j = 1; j<*boardDimension; j++) {
                 
@@ -305,7 +280,7 @@ void Board::display(Player* player)
                 }
                 else if ((*board)[i][j] == PLAYER) {
 
-                    boardGameStr[i][j] = "P|";
+                    //boardGameStr[i][j] = "P|";
                     if (player->direction == NORTH) {
                         boardGameStr[i][j] = DIRECTION_ARROW_OUTPUT_NORTH;
                     }
@@ -356,60 +331,17 @@ void Board::display(Player* player)
 
 }
 
-void Board::pBoard()
-{
-    // TODO
-    string boardGameStr[*boardDimension][*boardDimension] = { " " };
-    for (int s = 0; s <*boardDimension; s++){
-        for (int t =0; t < *boardDimension; t++){
-            if (s == 0 && t == 0){
-                boardGameStr[s][t] = "| |";
-            }
-            else if (s == 0) {
-                if (t>10){
-                    boardGameStr[s][t] = std::to_string(t-11)+"|";
-                }
-                else{
-                boardGameStr[s][t] = std::to_string(t-1)+"|";
-                }
-            }
-            else if (s != 0 && t == 0) {
-                if (s>10){
-                    boardGameStr[s][t] = "|"+ std::to_string(s-11)+"|";
-                    }
-                else{
-                    boardGameStr[s][t] = "|"+ std::to_string(s-1)+"|";
-                    }
-            }
-            else {
-                boardGameStr[s][t] = " |";
-            }
-            cout << boardGameStr[s][t];  
-        }
-        cout << endl;
-    }
-}
 
-void Board::pBoardNoPlayer(){
+void Board::pBoard(){
     string boardGameStr[*boardDimension][*boardDimension] = { " " };
-    //todo if baordId isNot valid, loop till valid
-   
-    //cout << "created test in board.cpp" << endl;
-    //cout << "assignt *board to test" << endl;
-    //Player t1;
     
-    //t1 = *player;
-    //test[t1.position.x][t1.position.y] = PLAYER;
-    //cout<< "printing board address in baord::class" << board << endl;
     for (int i =1; i<*boardDimension; i++) {
         for (int j = 1; j<*boardDimension; j++) {
                 if ((*board)[i][j] == BLOCKED) {
                     boardGameStr[i][j] = "*|";
-                    //next line creates a seg fault
-                    //this->board->at(i).at(j) = BLOCKED;
                 }
-                else {
-                boardGameStr[i][j] = " |";
+                else if ((*board)[i][j] != PLAYER) {
+                    boardGameStr[i][j] = " |";
                 }
          
         }
