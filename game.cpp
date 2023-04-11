@@ -17,9 +17,12 @@ Game::Game()
     //cout << "this is this.board in game: " <<this->board << endl;
     cout << "You can use the following commands to play the game:\n" << endl;
     cout << "load <g>\n    g - number of gameboard to load" << endl;
-    cout << "init <x>,<y>,<diretion>\n    x: horizontal position of the car on the board (between 0 & 9)" << endl;
-    cout << "    y: vertical position of the car on the board (between 0 & 9)" << endl;
+    cout << "init <x>,<y>,<diretion>\n    x: horizontal position of the car on the board" << endl;
+    cout << "    y: vertical position of the car on the board" << endl;
     cout << "    direction: direction of the car's movement (north, east, south, west)" << endl;
+    cout << "generate <d>,<p>" << endl;
+    cout << "    d: the dimension of the game board to be generated" << endl;
+    cout << "    p: the probability of the blocks on board to be generated randomly" << endl;
     cout << "forward (or f)" << endl;
     cout << "turn_left (or l)" << endl;
     cout << "turn_right (or r)" << endl;
@@ -48,7 +51,7 @@ void Game::start()
 
     while (gamer != "quit"){
         //ensuring valid input
-        if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right " || gamer == "r" || gamer == "l" || gamer == "f"){
+        if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right" || gamer == "r" || gamer == "l" || gamer == "f"){
             if (gamer == "turn_left" || gamer == "l"){
                 //cout << "should turn left" << endl;
                 (*player).turnDirection(TURN_LEFT);
@@ -142,6 +145,7 @@ void Game::initPlayerLoop(string& command){
     cout << " load <g>" << endl;
     if (firstLoad){
         cout << " init <x>,<y>,<direction>" << endl;
+        cout << " generate <d>,<p> " << endl;
     }
     cout << " quit" << endl;
     cout << "Enter your choice: ";
@@ -180,7 +184,7 @@ void Game::initPlayerLoop(string& command){
                 }
             }
             if (firstLoad){
-                if (startPosVec[0] == "NotInm4"){
+                if (startPosVec[0] == "generate"){
                     Helper::splitString(startPosVec[1], startPosVec, ",");
 
                     if (startPosVec.size() == 2){
@@ -265,6 +269,7 @@ void Game::initPlayerLoop(string& command){
 
             if (firstLoad){
                 cout << " init <x>,<y>,<direction>" << endl;
+                cout << " generate <d>,<p>" << endl;
             }
 
             cout << " quit" << endl;
