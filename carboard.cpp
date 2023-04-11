@@ -24,14 +24,6 @@ string mainMenuCheck();
 
 int main()
 {
-    /**
-     * TODO: here's the main function. You can write the "main menu" loop/code
-     * here or you can make separate functions - up to you.
-     */
-        // choice becomes a string
-    // check if lenght of choice is > 1, if so, then it is invalid
-    // if lenght of choice is 1, then check if it is an int and if it is 1, 2, or 3
-    // continue
 
     int choice;
     choice = mainMenu();
@@ -56,7 +48,7 @@ int main()
                     game.start();
                 }
 
-                cout << "Total player moves: " << game.getPlayerMoves() << endl;
+                cout << "\nTotal player moves: " << game.getPlayerMoves() << endl;
                 
                 //cout << "end of init" << endl;
                 command = "quit";

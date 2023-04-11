@@ -106,7 +106,8 @@ public:
     */
     void display(Player* player);
 
-    /* generate a resizeable board based on the input x and allocated the roadblocks 
+    /*
+     * generate a resizeable board based on the input x and allocated the roadblocks 
      * based on the input y a a percentage value.
     */
     void resizeBoard(int x, double y);

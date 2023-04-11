@@ -42,13 +42,15 @@ Game::~Game()
 
 void Game::start()
 {
-    //TODO
+    
     string gamer;
     cout << "\nEnter a command: " << endl;
     cout << " enter forward (or f)\n" <<" turn_left (or l)" << endl;
     cout << " turn_right (or r)\n"<<" quit" << endl;
     Helper::readInput(gamer);
+
     while (gamer != "quit"){
+        //ensuring valid input
         if (gamer == "forward" || gamer == "turn_left" || gamer == "turn_right " || gamer == "r" || gamer == "l" || gamer == "f"){
             if (gamer == "turn_left" || gamer == "l"){
                 //cout << "should turn left" << endl;
@@ -137,6 +139,7 @@ int Game::intPlayer(int x, int y, Direction z)
 
 
 void Game::initPlayerLoop(string& command){
+    //first load ensures that the board has been loaded at least once
     bool firstLoad = false;
     cout << "Select either:" << endl;
     cout << " load <g>" << endl;
@@ -170,36 +173,34 @@ void Game::initPlayerLoop(string& command){
             //cout<< "size 2 command was: " <<command<<endl;
             if (startPosVec[0] == "load"){
                 if (Helper::isNumber(startPosVec[1])){
-                    //cout << "made it into isNumber" << endl;
-                    //cout << "loadVector[1] was: " << loadVector[1] <<"d" << endl;
+                    //ensuring input is valid
                     if (stoi(startPosVec[1]) == 1 || stoi(startPosVec[1]) == 2){
-                        //cout << "made it into stoi" << endl;
 
-                        //cout << "got here" <<endl;
                         loadBoardNumber(stoi(startPosVec[1]));
                         valid2 = true;
                         firstLoad = true;
-                        //cout <<"got here" <<endl;
-                        //valid1 = false;
+                      
                     }
                 }
             }
             if (firstLoad){
                 if (startPosVec[0] == "generate"){
                     Helper::splitString(startPosVec[1], startPosVec, ",");
+
                     if (startPosVec.size() == 2){
+                        
                         if (Helper::isNumber(startPosVec[0])){
                             int x = stoi(startPosVec[0]);
+                            
                             if (x <= 20 && x >= 10){
                                 string temp = startPosVec[1];
                                 Helper::splitString(startPosVec[1], startPosVec, ".");
+
                                 if(startPosVec.size() == 2){
                                     if (startPosVec[0] == "0" && Helper::isNumber(startPosVec[0]) && Helper::isNumber(startPosVec[1])){
                                         double y = stod(temp);
                                         //cout << "y was: " << y << endl;
-                                        //we create a parse in a create board.
                                         board->resizeBoard(x,y);
-                                        //valid1 = false;
                                         valid2 = true;
                                     }
                                 }
@@ -218,12 +219,13 @@ void Game::initPlayerLoop(string& command){
                             int y = stoi(startPosVec[1]);
                             string direction = startPosVec[2];
                             ///*
+                            //ensuring direction is valid
                             if (direction == "north" || direction == "east" || direction == "south" || direction == "west"){
+                                //ensuring it is a valid position
                                 if (board->placePlayer(Position(x,y)) == true){
                                     bool playerSet = false;
                                     
                                     if (direction == "north"){
-                                        // check if valid position for board due to out of bounds
                                         intPlayer(x,y,NORTH);
                                         playerSet = true;
                                     }

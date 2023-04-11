@@ -55,16 +55,18 @@ public:
     Game();
     ~Game();
 
-    //calls upon board.load to load the associated board
+    //calls upon board.load to load the associated board, used instead of loadBoard()
     void loadBoardNumber(int x);
 
+    //calls upon player.initialisePlayer if valid input, used instead of initializePlayer()
     int intPlayer(int x,int y, Direction z);
 
     //loops and checks for valid input for the load board function
     void loadBoardLoop(string& command);
 
 
-    //loops and checks for valid input for the init player function and load board function
+    //loops and checks for valid input for the init player function and load board function.
+    //acts ast a game main menu
     void initPlayerLoop(string& command);
 
     //returns the amount of moves the player has made
@@ -86,6 +88,10 @@ public:
      * used while playing the game
      
      */
+
+    /*
+    * used instead of the play() method
+    */
     void start();
 };
 

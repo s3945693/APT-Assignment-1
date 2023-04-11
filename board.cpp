@@ -267,16 +267,16 @@ PlayerMove Board::movePlayerForward(Player* player)
 
 void Board::display(Player* player)
 {
-    // TODO
+    // displaying th board with a player
     string boardGameStr[*boardDimension][*boardDimension] = { " " };
    
+    //creating a string array to display the board
     for (int i =1; i<*boardDimension; i++) {
         for (int j = 1; j<*boardDimension; j++) {
                 
                 if ((*board)[i][j] == BLOCKED) {
                     boardGameStr[i][j] = "*|";
-                    //next line creates a seg fault
-                    //this->board->at(i).at(j) = BLOCKED;
+                    
                 }
                 else if ((*board)[i][j] == PLAYER) {
 
@@ -302,6 +302,7 @@ void Board::display(Player* player)
 
     }
 
+    //printing the board
     for (int s=0; s<*boardDimension; s++) {
         for (int t=0; t<*boardDimension; t++) {
             if (s == 0 && t == 0){
@@ -333,6 +334,7 @@ void Board::display(Player* player)
 
 
 void Board::pBoard(){
+    //works the same as display but does not display the player
     string boardGameStr[*boardDimension][*boardDimension] = { " " };
     
     for (int i =1; i<*boardDimension; i++) {
